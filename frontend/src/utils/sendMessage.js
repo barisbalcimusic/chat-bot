@@ -1,14 +1,10 @@
-export const sendMessage = async (message) => {
+//!ONLY FOR TESTING
+export const sendMessage = async () => {
   try {
-    const res = await fetch("http://localhost:3000/api/messages", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ message }),
-    });
+    const res = await fetch("https://api.quotable.io/random");
+
     if (!res.ok) {
-      throw new Error("Failed to send message");
+      throw new Error("Failed to get messages");
     }
     const data = await res.json();
     return data;

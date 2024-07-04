@@ -15,10 +15,18 @@ const History = () => {
   }, [chat]);
 
   return (
-    <div className="flex flex-col gap-5 p-10">
-      {chat.map(({ message }) => (
-        <p key={message} className="bg-[#D7FFE0] p-3">
-          {message}
+    <div className="flex flex-col items-center gap-8 p-10 overflow-x-auto">
+      {chat.map((message, index) => (
+        <p
+          key={index}
+          className={
+            (message.type === "answer" &&
+              "bg-[#D7FFE0] p-4 w-[40%] rounded-[20px] ml-[200px]") ||
+            (message.type === "question" &&
+              "bg-[#D8E0FF] p-4 w-[40%] rounded-[20px] mr-[200px]")
+          }
+        >
+          {message.message}
         </p>
       ))}
     </div>
