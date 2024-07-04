@@ -5,7 +5,7 @@ const History = () => {
 
   return (
     <div className="flex flex-col gap-5 p-10">
-      {chat.map((message) => (
+      {chat.map(({ message }) => (
         <p key={message} className="bg-[#D7FFE0] p-3">
           {message}
         </p>

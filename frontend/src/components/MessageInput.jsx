@@ -3,17 +3,28 @@ import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import { sendMessage } from "../utils/sendMessage";
 import { useChatContext } from "../contexts/ChatContext";
+import { getAllMessages } from "../utils/getAllMessages";
 
 const MessageInput = () => {
   const [message, setMessage] = useState("");
-  const { chat, setChat } = useChatContext();
+  const { setChat } = useChatContext();
 
   //SEND MESSAGE TO FETCH
   const handleSubmit = (e) => {
     e.preventDefault();
     sendMessage(message)
-      .then(({ message }) => setChat((chat) => [...chat, message]))
+      .then(() => fetchData())
       .catch((e) => console.log(e));
+  };
+
+  //GET ALL MESSAGES FROM DB AND SET AS STATE
+  const fetchData = async () => {
+    try {
+      const data = await getAllMessages();
+      setChat(data);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (

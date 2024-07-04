@@ -1,6 +1,6 @@
 export const sendMessage = async (message) => {
   try {
-    const res = await fetch("http://localhost:3000/api/message", {
+    const res = await fetch("http://localhost:3000/api/messages", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -12,7 +12,7 @@ app.use(express.json());
 await connectDB();
 
 //ROUTES
-app.use("/api/message", messageRoute);
+app.use("/api/messages", messageRoute);
 
 //ERROR HANDLER
 app.use(errorMiddleware);
