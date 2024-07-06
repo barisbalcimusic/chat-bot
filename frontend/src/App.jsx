@@ -5,21 +5,24 @@ import History from "./components/History";
 import SidebarContextProvider from "./contexts/SidebarContext";
 import ChatContextProvider from "./contexts/ChatContext";
 import LoginContextProvider from "./contexts/LoginContext";
+import SubmitContextProvider from "./contexts/SubmitContext";
 
 const App = () => {
   return (
     <LoginContextProvider>
       <ChatContextProvider>
-        <SidebarContextProvider>
-          <div id="container" className="w-screen h-screen flex bg-[#9FC1BF]">
-            <Ham />
-            <Aside />
-            <main className="h-full w-full flex flex-col relative">
-              <History />
-              <MessageInput />
-            </main>
-          </div>
-        </SidebarContextProvider>
+        <SubmitContextProvider>
+          <SidebarContextProvider>
+            <div id="container" className="w-screen h-screen flex bg-[#9FC1BF]">
+              <Ham />
+              <Aside />
+              <main className="h-full w-full flex flex-col">
+                <History />
+                <MessageInput />
+              </main>
+            </div>
+          </SidebarContextProvider>
+        </SubmitContextProvider>
       </ChatContextProvider>
     </LoginContextProvider>
   );

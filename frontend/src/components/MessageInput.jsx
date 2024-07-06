@@ -3,21 +3,38 @@ import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import { saveMessage } from "../utils/saveMessage";
 import { sendMessage } from "../utils/sendMessage";
+import { useLoginContext } from "../contexts/LoginContext";
+import { useSubmitContext } from "../contexts/SubmitContext";
 
 const MessageInput = () => {
   const [message, setMessage] = useState("");
+  const { loggedIn } = useLoginContext();
+  const { setSubmitted } = useSubmitContext();
 
-  //SEND MESSAGE TO FETCH
   const handleSubmit = (e) => {
     e.preventDefault();
     const post = { message: message, type: "question" };
-    saveMessage(post)
-      .then(() => {
-        fetchData();
-        setMessage("");
-        console.log("Message sent");
-      })
-      .catch((e) => console.log(e));
+    if (loggedIn) {
+      //POST MESSAGE TO DB
+      saveMessage(post)
+        .then(() => {
+          fetchData();
+          setMessage("");
+          console.log("Message sent");
+        })
+        .catch((e) => console.log(e));
+    } else {
+      //POST MESSAGE TO SESSION STORAGE
+      const messagesFromSS = JSON.parse(
+        sessionStorage.getItem("messageHistory")
+      );
+      sessionStorage.setItem(
+        "messageHistory",
+        JSON.stringify(messagesFromSS ? [...messagesFromSS, post] : [post])
+      );
+      setMessage("");
+    }
+    setSubmitted((value) => !value);
   };
 
   //GET THE ANSWER AND SAVE INTO DB
@@ -33,7 +50,7 @@ const MessageInput = () => {
   return (
     <div
       id="message-bar"
-      className="w-full min-h-[120px] flex justify-center items-center absolute bottom-0 bg-[#D9D9D9]"
+      className="w-full min-h-[120px] flex justify-center items-center bg-[#D9D9D9]"
     >
       <form className="w-full flex justify-center" onSubmit={handleSubmit}>
         <input

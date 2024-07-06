@@ -1,6 +1,6 @@
-import mongoose, { model } from "mongoose";
+import mongoose from "mongoose";
 
-const { Schema } = mongoose;
+const { Schema, model } = mongoose;
 
 const messageSchema = new Schema({
   message: { type: String, required: true },

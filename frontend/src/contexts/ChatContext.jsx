@@ -3,10 +3,11 @@ import { createContext, useContext, useState } from "react";
 export const ChatContext = createContext();
 
 const ChatContextProvider = ({ children }) => {
-  const [chat, setChat] = useState([]);
+  const [chatDB, setChatDB] = useState([]);
+  const [chatSS, setChatSS] = useState([]);
 
   return (
-    <ChatContext.Provider value={{ chat, setChat }}>
+    <ChatContext.Provider value={{ chatDB, setChatDB, chatSS, setChatSS }}>
       {children}
     </ChatContext.Provider>
   );
