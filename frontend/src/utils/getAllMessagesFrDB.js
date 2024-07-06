@@ -1,4 +1,4 @@
-export const getAllMessages = async () => {
+export const getAllMessagesFrDB = async () => {
   try {
     const res = await fetch("http://localhost:3000/api/messages");
 

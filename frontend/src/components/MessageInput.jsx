@@ -1,7 +1,8 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
-import { saveMessage } from "../utils/saveMessage";
+import { saveMessageToDB } from "../utils/saveMessageToDB";
+import { saveMessageToSS } from "../utils/saveMessageToSS";
 import { sendMessage } from "../utils/sendMessage";
 import { useLoginContext } from "../contexts/LoginContext";
 import { useSubmitContext } from "../contexts/SubmitContext";
@@ -20,7 +21,7 @@ const MessageInput = () => {
     const post = { message: message, type: "question" };
     if (loggedIn) {
       //POST MESSAGE TO DB
-      saveMessage(post)
+      saveMessageToDB(post)
         .then(() => {
           fetchData();
           setMessage("");
@@ -29,13 +30,8 @@ const MessageInput = () => {
         .catch((e) => console.log(e));
     } else {
       //POST MESSAGE TO SESSION STORAGE
-      const messagesFromSS = JSON.parse(
-        sessionStorage.getItem("messageHistory")
-      );
-      sessionStorage.setItem(
-        "messageHistory",
-        JSON.stringify(messagesFromSS ? [...messagesFromSS, post] : [post])
-      );
+      saveMessageToSS(post);
+      fetchData();
       setMessage("");
     }
     setSubmitted((value) => !value);
@@ -45,7 +41,10 @@ const MessageInput = () => {
   const fetchData = async () => {
     try {
       const { content } = await sendMessage();
-      saveMessage({ message: content, type: "answer" });
+
+      loggedIn
+        ? saveMessageToDB({ message: content, type: "answer" })
+        : saveMessageToSS({ message: content, type: "answer" });
     } catch (e) {
       console.log(e);
     }

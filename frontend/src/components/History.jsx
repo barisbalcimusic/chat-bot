@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useChatContext } from "../contexts/ChatContext";
-import { getAllMessages } from "../utils/getAllMessages";
+import { getAllMessagesFrDB } from "../utils/getAllMessagesFrDB";
 import { useLoginContext } from "../contexts/LoginContext";
 import { useSubmitContext } from "../contexts/SubmitContext";
 
@@ -15,7 +15,7 @@ const History = () => {
       //DELETE ALL MESSAGES FROM SESSION STORAGE
       setChatSS(null);
       //GET ALL MESSAGES FROM DB AND SET AS STATE //!NOT OPTIMAL
-      getAllMessages()
+      getAllMessagesFrDB()
         .then((messages) => setchatDB(messages) || [])
         .catch((e) => {
           console.log(e);
@@ -33,14 +33,13 @@ const History = () => {
     //AUTO SCROLL TO BOTTOM
     const historyDiv = historyRef.current;
     historyDiv.scrollTop = historyDiv.scrollHeight;
-    console.log(historyDiv.scrollHeight);
   }, [chatDB, chatSS]);
 
   return (
     <div
       ref={historyRef}
       id="history-div"
-      className="flex flex-col items-center gap-8 p-5 overflow-y-auto"
+      className="flex flex-col items-center gap-4 p-5 overflow-y-auto"
     >
       {loggedIn
         ? chatDB.map((message, index) => (

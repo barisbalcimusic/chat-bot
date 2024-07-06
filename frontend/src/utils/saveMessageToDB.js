@@ -1,4 +1,4 @@
-export const saveMessage = async (post) => {
+export const saveMessageToDB = async (post) => {
   try {
     console.log("test");
     const res = await fetch("http://localhost:3000/api/messages", {
