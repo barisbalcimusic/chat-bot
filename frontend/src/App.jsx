@@ -16,7 +16,7 @@ const App = () => {
             <div id="container" className="w-screen h-screen flex bg-[#9FC1BF]">
               <Ham />
               <Aside />
-              <main className="h-full w-full flex flex-col">
+              <main className="w-full flex flex-col bg-[#9FC1BF] relative">
                 <History />
                 <MessageInput />
               </main>

@@ -61,9 +61,9 @@ const History = () => {
               key={index}
               className={
                 (message.type === "answer" &&
-                  "bg-[#D7FFE0] p-4 w-[40%] rounded-[20px] ml-[200px]") ||
+                  "bg-[#D7FFE0] p-4 w-[40%] rounded-[20px]") ||
                 (message.type === "question" &&
-                  "bg-[#D8E0FF] p-4 w-[40%] rounded-[20px] mr-[200px]")
+                  "bg-[#D8E0FF] p-4 w-[40%] rounded-[20px]")
               }
             >
               {message.message}

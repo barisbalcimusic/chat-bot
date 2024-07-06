@@ -13,6 +13,10 @@ const MessageInput = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    //PREVENT EMPTY MESSAGES
+    if (message.trim().length === 0) return;
+
     const post = { message: message, type: "question" };
     if (loggedIn) {
       //POST MESSAGE TO DB
@@ -50,7 +54,7 @@ const MessageInput = () => {
   return (
     <div
       id="message-bar"
-      className="w-full min-h-[120px] flex justify-center items-center bg-[#D9D9D9]"
+      className="w-full min-h-[120px] flex justify-center items-center absolute bottom-0 bg-[#D9D9D9]"
     >
       <form className="w-full flex justify-center" onSubmit={handleSubmit}>
         <input
