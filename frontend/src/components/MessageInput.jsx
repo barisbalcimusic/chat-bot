@@ -53,7 +53,7 @@ const MessageInput = () => {
   return (
     <div
       id="message-bar"
-      className="w-full min-h-[120px] flex justify-center items-center absolute bottom-0 bg-[#D9D9D9]"
+      className="w-full min-h-[120px] flex justify-center items-center bg-[#D9D9D9]"
     >
       <form className="w-full flex justify-center" onSubmit={handleSubmit}>
         <input

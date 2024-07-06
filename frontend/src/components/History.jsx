@@ -11,6 +11,11 @@ const History = () => {
   const historyRef = useRef();
 
   useEffect(() => {
+    //IN ORDER TO BRING MESSAGEINPUT TO BOTTOM BECAUSE POSITION FIXED DOESN'T WORK PROPERLY
+    historyRef.current.style.minHeight = `${innerHeight - 120}px`;
+  }, []);
+
+  useEffect(() => {
     if (loggedIn) {
       //DELETE ALL MESSAGES FROM SESSION STORAGE
       setChatSS(null);
