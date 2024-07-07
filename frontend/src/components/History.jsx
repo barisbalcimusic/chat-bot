@@ -5,7 +5,7 @@ import { useLoginContext } from "../contexts/LoginContext";
 import { useSubmitContext } from "../contexts/SubmitContext";
 
 const History = () => {
-  const { chatDB, setchatDB, chatSS, setChatSS } = useChatContext();
+  const { chatDB, setChatDB, chatSS, setChatSS } = useChatContext();
   const { loggedIn } = useLoginContext();
   const { submitted } = useSubmitContext();
   const historyRef = useRef();
@@ -17,11 +17,11 @@ const History = () => {
 
   useEffect(() => {
     if (loggedIn) {
-      //DELETE ALL MESSAGES FROM SESSION STORAGE
-      setChatSS(null);
-      //GET ALL MESSAGES FROM DB AND SET AS STATE //!NOT OPTIMAL
+      //CLEAR SESSION SOTRAGE
+      sessionStorage.clear();
+      //GET ALL MESSAGES FROM DB AND SET AS STATE //!NOT OPTIMAL GETTING ALL MESSAGES EACH TIME
       getAllMessagesFrDB()
-        .then((messages) => setchatDB(messages) || [])
+        .then((messages) => setChatDB(messages) || [])
         .catch((e) => {
           console.log(e);
         });
@@ -32,7 +32,7 @@ const History = () => {
       );
       setChatSS(messagesFromSS || []);
     }
-  }, [submitted]);
+  }, [submitted, loggedIn]);
 
   useEffect(() => {
     //AUTO SCROLL TO BOTTOM
