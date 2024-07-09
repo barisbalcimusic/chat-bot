@@ -7,9 +7,10 @@ const Aside = () => {
 
   //! QUICK LOGIN / LOGOUT ONLY FOR TESTING
   const handleClick = () => {
-    //! WTF IS THE PROBLEM ??????????????????
     setLoggedIn((value) => !value);
   };
+
+  const startNewChat = () => {};
 
   return (
     <div className="w-[300px] h-full hidden lg:flex lg:flex-col bg-[#D9D9D9]">
@@ -17,7 +18,14 @@ const Aside = () => {
         id="history-preview"
         className="w-full h-full flex flex-col gap-3 p-3 overflow-x-auto"
       >
-        {}
+        <div className="w-full flex justify-center">
+          <button
+            onClick={startNewChat}
+            className="w-[150px] p-3 rounded-[5px] hover:bg-[#C5E7E5] bg-[#9FC1BF]"
+          >
+            Start a new chat
+          </button>
+        </div>
       </div>
       <div className="min-h-[120px] min flex justify-center items-center bg-slate-500">
         {!loggedIn ? (

@@ -23,30 +23,35 @@ const MessageInput = () => {
       //POST MESSAGE TO DB
       saveMessageToDB(post)
         .then(() => {
-          fetchData();
-          setMessage("");
-          console.log("Message sent");
+          //GET THE ANSWER AND SAVE INTO DB
+          saveData().then(() => {
+            setMessage("");
+            setSubmitted((value) => !value);
+          });
         })
         .catch((e) => console.log(e));
     } else {
-      //POST MESSAGE TO SESSION STORAGE
+      //POST MESSAGE TO SS
       saveMessageToSS(post);
-      fetchData();
-      setMessage("");
+      //GET THE ANSWER AND SAVE INTO SS
+      saveData().then(() => {
+        setMessage("");
+        setSubmitted((value) => !value);
+      });
     }
-    setSubmitted((value) => !value);
+    //CLEAR THE INPUT
   };
 
-  //GET THE ANSWER AND SAVE INTO DB
-  const fetchData = async () => {
+  const saveData = async () => {
     try {
+      //GET THE ANSWER
       const { content } = await sendMessage();
-
+      //SAVE INTO DB or SS
       loggedIn
         ? saveMessageToDB({ message: content, type: "answer" })
         : saveMessageToSS({ message: content, type: "answer" });
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
   };
 

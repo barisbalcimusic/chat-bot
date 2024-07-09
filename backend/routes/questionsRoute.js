@@ -1,5 +1,5 @@
 import express from "express";
-import { getQuestions } from "../controllers/getQuestions.js";
+import { getQuestions } from "../controllers/chat/getQuestions.js";
 
 export const questionsRoute = express.Router();
 
