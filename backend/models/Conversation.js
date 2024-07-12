@@ -8,7 +8,7 @@ const messageSchema = new Schema({
 });
 
 const conversationSchema = new Schema({
-  userId: { type: String, required: true },
+  userId: { type: String, required: true, unique: true },
   messages: [messageSchema],
 });
 

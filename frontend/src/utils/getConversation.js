@@ -4,7 +4,8 @@ export const getConversation = async (userId) => {
       `http://localhost:3000/api/conversations/${userId}`
     );
     if (!res.ok) {
-      throw new Error("Failed to create conversation");
+      //IF NO CONVERSATION FOUND RETURN UNDEFINED
+      return undefined;
     }
     const data = await res.json();
     return data;
