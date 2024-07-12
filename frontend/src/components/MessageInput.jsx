@@ -1,55 +1,35 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
-import { saveMessageToDB } from "../utils/saveMessageToDB";
-import { saveMessageToSS } from "../utils/saveMessageToSS";
-import { sendMessage } from "../utils/sendMessage";
-import { useLoginContext } from "../contexts/LoginContext";
+import { saveMessage } from "../utils/saveMessage";
+import { getAnswer } from "../utils/getAnswer";
 import { useSubmitContext } from "../contexts/SubmitContext";
 
 const MessageInput = () => {
-  const [message, setMessage] = useState("");
-  const { loggedIn } = useLoginContext();
+  const [inputValue, setInputValue] = useState("");
   const { setSubmitted } = useSubmitContext();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    //!ONLY FOR TESTING
+    const userId = "test";
 
     //PREVENT EMPTY MESSAGES
-    if (message.trim().length === 0) return;
+    if (inputValue.trim().length === 0) return;
 
-    const post = { message: message, type: "question" };
-    if (loggedIn) {
-      //POST MESSAGE TO DB
-      saveMessageToDB(post)
-        .then(() => {
-          //GET THE ANSWER AND SAVE INTO DB
-          saveData().then(() => {
-            setMessage("");
-            setSubmitted((value) => !value);
-          });
-        })
-        .catch((e) => console.log(e));
-    } else {
-      //POST MESSAGE TO SS
-      saveMessageToSS(post);
-      //GET THE ANSWER AND SAVE INTO SS
-      saveData().then(() => {
-        setMessage("");
-        setSubmitted((value) => !value);
-      });
-    }
-    //CLEAR THE INPUT
-  };
+    const post = { userId, message: inputValue, type: "question" };
 
-  const saveData = async () => {
     try {
-      //GET THE ANSWER
-      const { content } = await sendMessage();
-      //SAVE INTO DB or SS
-      loggedIn
-        ? saveMessageToDB({ message: content, type: "answer" })
-        : saveMessageToSS({ message: content, type: "answer" });
+      //POST QUESTION INTO CONVERSATION
+      await saveMessage(post);
+      //GET THE ANSWER FROM API
+      const { content } = await getAnswer();
+      // POST ANSWER INTO CONVERSATION
+      await saveMessage({ userId, message: content, type: "answer" });
+      //CLEAR THE INPUT
+      setInputValue("");
+      //TRIGGER RE-RENDERING FOR HISTORY
+      setSubmitted((value) => !value);
     } catch (e) {
       console.error(e);
     }
@@ -62,11 +42,11 @@ const MessageInput = () => {
     >
       <form className="w-full flex justify-center" onSubmit={handleSubmit}>
         <input
-          value={message}
+          value={inputValue}
           type="text"
           placeholder="your message"
           className="h-[70px] w-[40%] rounded-[5px] placeholder:italic placeholder:indent-2 indent-2 focus:outline-none"
-          onChange={(e) => setMessage(e.target.value)}
+          onChange={(e) => setInputValue(e.target.value)}
         />
         <button type="submit" className="hover:bg-[#C5E7E5] bg-[#9FC1BF] p-2 ">
           <FontAwesomeIcon icon={faPaperPlane} />

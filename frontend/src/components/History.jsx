@@ -1,14 +1,38 @@
 import { useEffect, useRef } from "react";
 import { useChatContext } from "../contexts/ChatContext";
-import { getAllMessagesFrDB } from "../utils/getAllMessagesFrDB";
-import { useLoginContext } from "../contexts/LoginContext";
 import { useSubmitContext } from "../contexts/SubmitContext";
+import { getConversation } from "../utils/getConversation";
+import { createConversation } from "../utils/createConversation";
 
 const History = () => {
-  const { chatDB, setChatDB, chatSS, setChatSS } = useChatContext();
-  const { loggedIn } = useLoginContext();
+  const { messages, setMessages } = useChatContext();
   const { submitted } = useSubmitContext();
   const historyRef = useRef();
+
+  useEffect(() => {
+    //!ONLY FOR TESTING
+    const userId = "test";
+
+    //GET ALL MESSAGES & SET AS STATE //!NOT OPTIMAL GETTING ALL MESSAGES EACH TIME
+    const fetchMessages = async () => {
+      try {
+        const conversation = await getConversation(userId);
+        //IF THERE IS A CONVERSATION
+        if (conversation) {
+          //SET MESSAGES INTO STATE VARIABLE
+          setMessages(conversation.messages);
+          //IF THERE IS NO CONVERSATION
+        } else {
+          //CREATE A NEW CONVERSATION
+          await createConversation(userId);
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    };
+
+    fetchMessages();
+  }, [submitted]);
 
   useEffect(() => {
     //IN ORDER TO BRING MESSAGEINPUT TO BOTTOM BECAUSE POSITION FIXED DOESN'T WORK PROPERLY
@@ -16,29 +40,10 @@ const History = () => {
   }, []);
 
   useEffect(() => {
-    if (loggedIn) {
-      //CLEAR SESSION SOTRAGE
-      sessionStorage.clear();
-      //GET ALL MESSAGES FROM DB AND SET AS STATE //!NOT OPTIMAL GETTING ALL MESSAGES EACH TIME
-      getAllMessagesFrDB()
-        .then((messages) => setChatDB(messages) || [])
-        .catch((e) => {
-          console.log(e);
-        });
-    } else {
-      //GET ALL MESSAGES FROM SESSION STORAGE
-      const messagesFromSS = JSON.parse(
-        sessionStorage.getItem("messageHistory")
-      );
-      setChatSS(messagesFromSS || []);
-    }
-  }, [submitted, loggedIn]);
-
-  useEffect(() => {
     //AUTO SCROLL TO BOTTOM
     const historyDiv = historyRef.current;
     historyDiv.scrollTop = historyDiv.scrollHeight;
-  }, [chatDB, chatSS]);
+  }, [messages]);
 
   return (
     <div
@@ -46,33 +51,19 @@ const History = () => {
       id="history-div"
       className="flex flex-col items-center gap-4 p-5 overflow-y-auto"
     >
-      {loggedIn
-        ? chatDB.map((message, index) => (
-            <p
-              key={index}
-              className={
-                (message.type === "answer" &&
-                  "bg-[#D7FFE0] p-4 w-[40%] rounded-[20px]") ||
-                (message.type === "question" &&
-                  "bg-[#D8E0FF] p-4 w-[40%] rounded-[20px]")
-              }
-            >
-              {message.message}
-            </p>
-          ))
-        : chatSS.map((message, index) => (
-            <p
-              key={index}
-              className={
-                (message.type === "answer" &&
-                  "bg-[#D7FFE0] p-4 w-[40%] rounded-[20px]") ||
-                (message.type === "question" &&
-                  "bg-[#D8E0FF] p-4 w-[40%] rounded-[20px]")
-              }
-            >
-              {message.message}
-            </p>
-          ))}
+      {messages.map((message, index) => (
+        <p
+          key={index}
+          className={
+            (message.type === "answer" &&
+              "bg-[#D7FFE0] p-4 w-[40%] rounded-[20px]") ||
+            (message.type === "question" &&
+              "bg-[#D8E0FF] p-4 w-[40%] rounded-[20px]")
+          }
+        >
+          {message.message}
+        </p>
+      ))}
     </div>
   );
 };

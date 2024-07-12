@@ -1,7 +1,13 @@
 import express from "express";
-import { createMessage } from "../controllers/chat/createMessage.js";
-import { getAllMessages } from "../controllers/chat/getAllMessages.js";
+import { getConversation } from "../controllers/message/getConversation.js";
+import { createConversation } from "../controllers/message/createConversation.js";
+import { createMessage } from "../controllers/message/createMessage.js";
 
 export const messageRoute = express.Router();
 
-messageRoute.route("/").get(getAllMessages).post(createMessage);
+//GET CONVERSATION
+messageRoute.route("/:id").get(getConversation);
+//CREATE CONVERSATION
+messageRoute.route("/").post(createConversation);
+//CREATE MESSAGES IN CONVERSATION
+messageRoute.route("/messages").post(createMessage);

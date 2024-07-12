@@ -1,5 +1,5 @@
 //!ONLY FOR TESTING
-export const sendMessage = async () => {
+export const getAnswer = async () => {
   try {
     const res = await fetch("https://api.quotable.io/random");
 
@@ -8,7 +8,7 @@ export const sendMessage = async () => {
     }
     const data = await res.json();
     return data;
-  } catch (error) {
-    console.error(`Error: ${error.message}`);
+  } catch (e) {
+    console.error(e);
   }
 };

@@ -17,7 +17,7 @@ app.use(express.json());
 await connectDB();
 
 //ROUTES
-app.use("/api/messages", messageRoute);
+app.use("/api/conversations", messageRoute);
 app.use("/api/questions", questionsRoute);
 
 //ERROR HANDLER
