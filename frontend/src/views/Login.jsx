@@ -7,7 +7,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [warning, setWarning] = useState(false);
   const [password, setPassword] = useState("");
-  const { setLoggedIn } = useLoginContext();
+  const { user, setUser, setLoggedIn } = useLoginContext();
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
@@ -19,6 +19,7 @@ const Login = () => {
       } else {
         setWarning(false);
         setLoggedIn(true);
+        setUser(data);
         navigate("/chat");
       }
     });
