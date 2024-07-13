@@ -1,16 +1,27 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { login } from "../utils/login";
+import { useLoginContext } from "../contexts/LoginContext";
 
 const Login = () => {
   const [email, setEmail] = useState("");
+  const [warning, setWarning] = useState(false);
   const [password, setPassword] = useState("");
+  const { setLoggedIn } = useLoginContext();
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    login({ email, password })
-      .then((data) => console.log(data))
-      .catch((e) => console.log(e));
+    login({ email, password }).then((data) => {
+      //IF LOGIN INVALID ACTIVATE WARNING, ELSE DEACTIVATE
+      if (!data) {
+        setWarning(true);
+      } else {
+        setWarning(false);
+        setLoggedIn(true);
+        navigate("/chat");
+      }
+    });
   };
 
   return (
@@ -33,6 +44,7 @@ const Login = () => {
         placeholder="Password"
         onChange={(e) => setPassword(e.target.value)}
       />
+      {warning && <p>asdasd</p>}
       <button
         type="submit"
         className="w-[300px] p-3 bg-[#9FC1BF] hover:bg-[#C5E7E5] border-gray-400 rounded-[10px] "
