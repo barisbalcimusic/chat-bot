@@ -14,8 +14,8 @@ const Login = () => {
     e.preventDefault();
     login({ email, password }).then((data) => {
       //IF LOGIN INVALID ACTIVATE WARNING, ELSE DEACTIVATE
-      if (!data) {
-        setWarning(true);
+      if (data.error) {
+        setWarning(data.error);
       } else {
         setWarning(false);
         setLoggedIn(true);
@@ -32,7 +32,7 @@ const Login = () => {
       <h1 className="text-4xl font-bold mb-[30px]">Login</h1>
       <input
         value={email}
-        type="email"
+        type="text"
         className="w-[300px] p-3 placeholder:italic border border-gray-400 rounded-[10px] "
         placeholder="Email adress"
         onChange={(e) => setEmail(e.target.value)}
@@ -44,7 +44,15 @@ const Login = () => {
         placeholder="Password"
         onChange={(e) => setPassword(e.target.value)}
       />
-      {warning && <p>asdasd</p>}
+      {warning && (
+        <p className="text-red-500">
+          {warning === "InputEmpty"
+            ? "Email or Password must'n be empty"
+            : warning === "NotRegistered" || "Unauthorized"
+            ? "Invalid login data"
+            : ""}
+        </p>
+      )}
       <button
         type="submit"
         className="w-[300px] p-3 bg-[#9FC1BF] hover:bg-[#C5E7E5] border-gray-400 rounded-[10px] "

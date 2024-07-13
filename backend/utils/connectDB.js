@@ -12,7 +12,7 @@ export const connectDB = async () => {
     });
     return await mongoose.connect(db_url);
   } catch (error) {
-    console.error(`Error: ${error.message}`);
+    console.error(error);
     process.exit(1);
   }
 };

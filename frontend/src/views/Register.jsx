@@ -5,6 +5,7 @@ import { register } from "../utils/register";
 const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [warning, setWarning] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -21,7 +22,7 @@ const Register = () => {
       <h1 className="text-4xl font-bold mb-[30px]">Register</h1>
       <input
         value={email}
-        type="email"
+        type="text"
         className="w-[300px] p-3 placeholder:italic border border-gray-400 rounded-[10px] "
         placeholder="Email adress"
         onChange={(e) => setEmail(e.target.value)}
@@ -33,6 +34,7 @@ const Register = () => {
         placeholder="Password"
         onChange={(e) => setPassword(e.target.value)}
       />
+      {warning && <p className="text-red-500">Invalid login data</p>}
       <button
         type="submit"
         className="w-[300px] p-3 bg-[#9FC1BF] hover:bg-[#C5E7E5] border-gray-400 rounded-[10px] "

@@ -5,10 +5,6 @@ export const login = async (post) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(post),
     });
-    //IF LOGIN INVALID RETURN UNDEFINED
-    if (!res.ok) {
-      return undefined;
-    }
     const data = await res.json();
     return data;
   } catch (e) {

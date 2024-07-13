@@ -5,6 +5,8 @@ export const register = async (post) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(post),
     });
+    console.log(res);
+
     const data = await res.json();
     return data;
   } catch (e) {
