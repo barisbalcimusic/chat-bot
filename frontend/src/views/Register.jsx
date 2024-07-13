@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { createUser } from "../utils/createUser";
+import { register } from "../utils/register";
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -8,7 +8,7 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    createUser({ email, password })
+    register({ email, password })
       .then((data) => console.log(data))
       .catch((e) => console.log(e));
   };
