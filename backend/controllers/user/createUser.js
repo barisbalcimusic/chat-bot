@@ -1,5 +1,6 @@
 import { hash } from "bcrypt";
 import { User } from "../../models/User.js";
+import mongoose from "mongoose";
 
 export const createUser = async (req, res, next) => {
   try {
@@ -32,7 +33,16 @@ export const createUser = async (req, res, next) => {
       res.status(400).json({ error: "DbError", message: "Login failed" });
 
     res.status(200).json(user);
-  } catch (e) {
-    next(e);
+  } catch (error) {
+    let errors = {};
+    if (error instanceof mongoose.Error.ValidationError) {
+      //FIND THE ERROR TYPE
+      for (let field in error.errors) {
+        errors["error"] = error.errors[field].message;
+        next(errors);
+        return;
+      }
+    }
+    next(error);
   }
 };

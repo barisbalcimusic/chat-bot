@@ -13,7 +13,7 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     login({ email, password }).then((data) => {
-      //IF LOGIN INVALID ACTIVATE WARNING, ELSE DEACTIVATE
+      //IF LOGIN INVALID SET THE WARNING, ELSE DEACTIVATE
       if (data.error) {
         setWarning(data.error);
       } else {
@@ -46,7 +46,7 @@ const Login = () => {
       />
       {warning && (
         <p className="text-red-500">
-          {warning === "InputEmpty"
+          {warning === "EmptyInput"
             ? "Email or Password must'n be empty"
             : warning === "NotRegistered" || "Unauthorized"
             ? "Invalid login data"
