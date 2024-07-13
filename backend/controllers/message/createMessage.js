@@ -9,7 +9,7 @@ export const createMessage = async (req, res, next) => {
     conversation.messages.push({ message, type });
     await conversation.save();
 
-    res.status(201).json(conversation);
+    res.status(201).json(message);
   } catch (e) {
     next(e);
   }

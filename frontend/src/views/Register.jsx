@@ -1,18 +1,37 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import { createUser } from "../utils/createUser";
 
 const Register = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    createUser({ email, password })
+      .then((data) => console.log(data))
+      .catch((e) => console.log(e));
+  };
+
   return (
-    <form className="w-screen h-screen flex flex-col justify-center items-center gap-5 p-5 bg-white">
+    <form
+      className="w-screen h-screen flex flex-col justify-center items-center gap-5 p-5 bg-white"
+      onSubmit={handleSubmit}
+    >
       <h1 className="text-4xl font-bold mb-[30px]">Register</h1>
       <input
+        value={email}
         type="email"
         className="w-[300px] p-3 placeholder:italic border border-gray-400 rounded-[10px] "
         placeholder="Email adress"
+        onChange={(e) => setEmail(e.target.value)}
       />
       <input
+        value={password}
         type="text"
         className="w-[300px] p-3 placeholder:italic border border-gray-400 rounded-[10px] "
         placeholder="Password"
+        onChange={(e) => setPassword(e.target.value)}
       />
       <button
         type="submit"

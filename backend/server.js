@@ -4,6 +4,7 @@ import { messageRoute } from "./routes/messageRoute.js";
 import { errorMiddleware } from "./middlewares/errorMiddleware.js";
 import cors from "cors";
 import { questionsRoute } from "./routes/questionsRoute.js";
+import { userRoute } from "./routes/userRoute.js";
 
 const app = express();
 app.use(
@@ -19,6 +20,7 @@ await connectDB();
 //ROUTES
 app.use("/api/conversations", messageRoute);
 app.use("/api/questions", questionsRoute);
+app.use("/api/users", userRoute);
 
 //ERROR HANDLER
 app.use(errorMiddleware);
