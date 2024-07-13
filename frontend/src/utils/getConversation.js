@@ -1,6 +1,7 @@
 export const getConversation = async (userId) => {
   try {
     const res = await fetch(
+      //* CAN BE IMPROVED
       `http://localhost:3000/api/conversations/${userId}`
     );
     if (!res.ok) {

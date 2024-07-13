@@ -1,18 +1,19 @@
-import MessageInput from "./components/MessageInput";
-import Ham from "./components/Ham";
-import Aside from "./components/Aside";
-import History from "./components/History";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Home from "./views/Home";
+import Login from "./views/Login";
+import Register from "./views/Register";
+import Chat from "./views/Chat";
 
 const App = () => {
   return (
-    <div id="container" className="w-screen h-screen flex bg-[#9FC1BF]">
-      <Ham />
-      <Aside />
-      <main className="w-full flex flex-col bg-[#9FC1BF] relative">
-        <History />
-        <MessageInput />
-      </main>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/chat" element={<Chat />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+      </Routes>
+    </BrowserRouter>
   );
 };
 

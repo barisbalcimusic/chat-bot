@@ -4,30 +4,38 @@ import { useState } from "react";
 import { saveMessage } from "../utils/saveMessage";
 import { getAnswer } from "../utils/getAnswer";
 import { useSubmitContext } from "../contexts/SubmitContext";
+import { useChatContext } from "../contexts/ChatContext";
 
 const MessageInput = () => {
   const [inputValue, setInputValue] = useState("");
   const { setSubmitted } = useSubmitContext();
+  const { messages, setMessages } = useChatContext();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     //!ONLY FOR TESTING
     const userId = "test";
 
-    //PREVENT EMPTY MESSAGES
+    //IGNORE EMPTY MESSAGES
     if (inputValue.trim().length === 0) return;
 
     const post = { userId, message: inputValue, type: "question" };
+    //ADD QUESTION INTO MESSAGES STATE //* CAN BE IMPROVED
+    setMessages([...messages, post]);
 
     try {
       //POST QUESTION INTO CONVERSATION
       await saveMessage(post);
       //GET THE ANSWER FROM API
       const { content } = await getAnswer();
+      const answer = { userId, message: content, type: "answer" };
       // POST ANSWER INTO CONVERSATION
-      await saveMessage({ userId, message: content, type: "answer" });
+      await saveMessage(answer);
+      //ADD ANSWER INTO MESSAGES STATE
+      setMessages((prevMessages) => [...prevMessages, answer]);
       //CLEAR THE INPUT
       setInputValue("");
+
       //TRIGGER RE-RENDERING FOR HISTORY
       setSubmitted((value) => !value);
     } catch (e) {

@@ -13,7 +13,7 @@ const History = () => {
     //!ONLY FOR TESTING
     const userId = "test";
 
-    //GET ALL MESSAGES & SET AS STATE //!NOT OPTIMAL GETTING ALL MESSAGES EACH TIME
+    //GET ALL MESSAGES & SET AS STATE
     const fetchMessages = async () => {
       try {
         const conversation = await getConversation(userId);
@@ -32,7 +32,7 @@ const History = () => {
     };
 
     fetchMessages();
-  }, [submitted]);
+  }, []);
 
   useEffect(() => {
     //IN ORDER TO BRING MESSAGEINPUT TO BOTTOM BECAUSE POSITION FIXED DOESN'T WORK PROPERLY
