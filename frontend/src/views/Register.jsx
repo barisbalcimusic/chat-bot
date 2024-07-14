@@ -3,17 +3,22 @@ import { Link, useNavigate } from "react-router-dom";
 import { register } from "../utils/register";
 
 const Register = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [emailValue, setEmailValue] = useState("");
+  const [passwordValue, setPasswordValue] = useState("");
   const [warning, setWarning] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    //CLEAR SPACES
+    const email = emailValue.trim();
+    const password = passwordValue.trim();
+
     register({ email, password }).then((data) => {
       //IF REGISTRATION INVALID SET THE WARNING, ELSE DEACTIVATE
       console.log(data);
       if (data.error) {
+        console.log(data);
         setWarning(data.error);
       } else {
         setWarning(false);
@@ -29,29 +34,29 @@ const Register = () => {
     >
       <h1 className="text-4xl font-bold mb-[30px]">Register</h1>
       <input
-        value={email}
+        value={emailValue}
         type="text"
         className="w-[300px] p-3 placeholder:italic border border-gray-400 rounded-[10px] "
-        placeholder="Email adress"
-        onChange={(e) => setEmail(e.target.value)}
+        placeholder="EmailValue adress"
+        onChange={(e) => setEmailValue(e.target.value)}
       />
       <input
-        value={password}
+        value={passwordValue}
         type="text"
         className="w-[300px] p-3 placeholder:italic border border-gray-400 rounded-[10px] "
-        placeholder="Password"
-        onChange={(e) => setPassword(e.target.value)}
+        placeholder="PasswordValue"
+        onChange={(e) => setPasswordValue(e.target.value)}
       />
       {warning && (
         <p className="text-red-500">
           {warning === "EmptyInput"
-            ? "Email or Password must'n be empty"
+            ? "EmailValue or PasswordValue must'n be empty"
             : warning === "AlreadyRegistered"
-            ? "This email adress is already registered"
-            : warning === "InvalidEmailFormat"
-            ? "The email format is invalid"
+            ? "This emailValue adress is already registered"
+            : warning === "InvalidEmailValueFormat"
+            ? "The emailValue format is invalid"
             : warning === "InvalidLength"
-            ? "The password must be longer than 8 characters"
+            ? "The passwordValue must be longer than 8 characters"
             : ""}
         </p>
       )}
