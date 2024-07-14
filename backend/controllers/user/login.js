@@ -46,7 +46,7 @@ export const login = async (req, res, next) => {
 
     const userId = user._id;
     const accessToken = jwt.sign({ userId }, secretKey, {
-      expiresIn: "60s",
+      expiresIn: "300s",
     });
     if (!accessToken) {
       return res.status(500).json({
@@ -57,7 +57,7 @@ export const login = async (req, res, next) => {
 
     //SET ACCESS TOKEN INTO COOKIES
     res.cookie("accessToken", accessToken, {
-      maxAge: 60 * 1000,
+      maxAge: 300 * 1000,
       httpOnly: true,
     });
 

@@ -4,7 +4,10 @@ const { Schema, model } = mongoose;
 
 const messageSchema = new Schema(
   {
-    message: { type: String, required: true },
+    message: {
+      type: String,
+      required: true,
+    },
     type: { type: String, required: true },
   },
   {
