@@ -19,13 +19,6 @@ const userSchema = new Schema(
     password: {
       type: String,
       required: true,
-      validate: {
-        //! DOESN'T WORK PROPERLY !!
-        validator: function (value) {
-          return validator.isLength(value, { min: 8, max: undefined });
-        },
-        message: () => "InvalidLength",
-      },
     },
   },
   {

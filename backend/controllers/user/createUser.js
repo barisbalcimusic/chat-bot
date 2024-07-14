@@ -13,6 +13,13 @@ export const createUser = async (req, res, next) => {
         message: "Email and password mustn't be empty",
       });
     }
+    //LENGTH VALIDATION HERE BACAUSE OF HASHING
+    if (password.length < 8) {
+      return res.status(400).json({
+        error: "InvalidLength",
+        message: "Password must have at least 8 characters",
+      });
+    }
 
     const userExists = await User.findOne({ email });
 
