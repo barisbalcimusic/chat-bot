@@ -4,6 +4,8 @@ export const login = async (post) => {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(post),
+      //To control whether or not the browser sends credentials, as well as whether the browser respects any Set-Cookie response headers, set the credentials option
+      credentials: "include",
     });
     const data = await res.json();
     return data;

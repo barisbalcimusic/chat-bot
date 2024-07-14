@@ -1,11 +1,13 @@
+import { logout } from "../../../backend/controllers/user/logout";
 import { useLoginContext } from "../contexts/LoginContext";
 
 const Aside = () => {
   const { user, loggedIn, setLoggedIn } = useLoginContext();
 
   //! QUICK LOGIN / LOGOUT ONLY FOR TESTING
-  const handleClick = () => {
-    setLoggedIn((value) => !value);
+  const handleLogout = () => {
+    setLoggedIn(false);
+    logout().then((data) => console.log(data));
   };
 
   return (
@@ -13,10 +15,10 @@ const Aside = () => {
       <div className="flex flex-col gap-2 min-h-[120px] min flex justify-center items-center bg-slate-500">
         <p className="text-white font-bold">{user}</p>
         <button
-          onClick={handleClick}
+          onClick={handleLogout}
           className="w-[150px] p-3 rounded-[5px] hover:bg-[#C5E7E5] bg-[#9FC1BF]"
         >
-          {loggedIn ? "Logout" : "Login"}
+          Logout
         </button>
       </div>
     </div>

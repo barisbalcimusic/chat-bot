@@ -5,11 +5,13 @@ import { saveMessage } from "../utils/saveMessage";
 import { getAnswer } from "../utils/getAnswer";
 import { useSubmitContext } from "../contexts/SubmitContext";
 import { useChatContext } from "../contexts/ChatContext";
+import { useLoginContext } from "../contexts/LoginContext";
 
 const MessageInput = () => {
   const [inputValue, setInputValue] = useState("");
   const { setSubmitted } = useSubmitContext();
   const { messages, setMessages } = useChatContext();
+  const { setLoggedIn } = useLoginContext();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,13 +21,22 @@ const MessageInput = () => {
     //IGNORE EMPTY MESSAGES
     if (inputValue.trim().length === 0) return;
 
-    const post = { userId, message: inputValue, type: "question" };
-    //ADD QUESTION INTO MESSAGES STATE //* CAN BE IMPROVED
-    setMessages([...messages, post]);
-
     try {
+      const post = { userId, message: inputValue, type: "question" };
+
       //POST QUESTION INTO CONVERSATION
-      await saveMessage(post);
+      const data = await saveMessage(post);
+
+      //CHECK FOR AUTHENTICATION ERROR
+      if (data.error) {
+        //LOGOUT USER
+        setLoggedIn(false);
+        throw new Error(data.error);
+      }
+
+      //ADD QUESTION INTO MESSAGES STATE //* CAN BE IMPROVED
+      setMessages([...messages, post]);
+
       //GET THE ANSWER FROM API
       const { content } = await getAnswer();
       const answer = { userId, message: content, type: "answer" };

@@ -1,10 +1,13 @@
 import express from "express";
-import { createUser } from "../controllers/user/createUser.js";
-import { getUser } from "../controllers/user/getUser.js";
+import { register } from "../controllers/user/createUser.js";
+import { login } from "../controllers/user/login.js";
+import { logout } from "../controllers/user/logout.js";
 
 export const userRoute = express.Router();
 
-//CREATE USER
-userRoute.route("/register").post(createUser);
-//GET USER
-userRoute.route("/login").post(getUser);
+//REGISTER
+userRoute.route("/register").post(register);
+//LOGIN
+userRoute.route("/login").post(login);
+//LOGOUT
+userRoute.route("/logout").post(logout);

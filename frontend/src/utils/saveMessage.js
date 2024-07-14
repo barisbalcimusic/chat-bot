@@ -8,11 +8,9 @@ export const saveMessage = async (post) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(post),
+        credentials: "include",
       }
     );
-    if (!res.ok) {
-      throw new Error("Failed to send message");
-    }
     const data = await res.json();
     return data;
   } catch (e) {

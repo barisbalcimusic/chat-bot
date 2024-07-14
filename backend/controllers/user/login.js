@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 
 const secretKey = process.env.TOKEN_SECRET_KEY;
 
-export const getUser = async (req, res, next) => {
+export const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
@@ -16,15 +16,15 @@ export const getUser = async (req, res, next) => {
       });
     }
 
-    const user = await User.findOne({ email });
-
     //CHECK IF USER EXISTS
+    const user = await User.findOne({ email });
     if (!user) {
       return res.status(401).json({
         error: "NotRegistered",
         message: "Invalid login",
       });
     }
+
     const enteredPassword = password;
     const hashedPassword = user.password;
 
@@ -37,7 +37,6 @@ export const getUser = async (req, res, next) => {
 
     //CHECK IF THE ENTERED PASWORD MATCHES WITH THE HASHED ONE FROM DB
     const isPasswordValid = await compare(enteredPassword, hashedPassword);
-
     if (!isPasswordValid) {
       return res.status(401).json({
         error: "Unauthorized",
@@ -46,19 +45,22 @@ export const getUser = async (req, res, next) => {
     }
 
     const userId = user._id;
-
     const accessToken = jwt.sign({ userId }, secretKey, {
-      expiresIn: "30s",
+      expiresIn: "60s",
     });
-
     if (!accessToken) {
-      return next(e);
+      return res.status(500).json({
+        error: "TokenCreationError",
+        message: "Error creating access token",
+      });
     }
+
     //SET ACCESS TOKEN INTO COOKIES
     res.cookie("accessToken", accessToken, {
-      maxAge: 30,
+      maxAge: 60 * 1000,
       httpOnly: true,
     });
+
     //RETURN USER DATA
     res.status(200).json(user);
   } catch (e) {

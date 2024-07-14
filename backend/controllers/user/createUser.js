@@ -2,7 +2,7 @@ import { hash } from "bcrypt";
 import { User } from "../../models/User.js";
 import mongoose from "mongoose";
 
-export const createUser = async (req, res, next) => {
+export const register = async (req, res, next) => {
   try {
     //TAKE USER DATA FROM BODY
     const { email, password } = req.body;

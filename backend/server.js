@@ -5,11 +5,16 @@ import { errorMiddleware } from "./middlewares/errorMiddleware.js";
 import cors from "cors";
 import { questionsRoute } from "./routes/questionsRoute.js";
 import { userRoute } from "./routes/userRoute.js";
+import cookieParser from "cookie-parser";
 
 const app = express();
+//NECCESSARY TO READ COOKIES FROM REQUEST OBJECT
+app.use(cookieParser());
+
 app.use(
   cors({
     origin: "http://localhost:5173",
+    credentials: true,
   })
 );
 app.use(express.json());

@@ -20,7 +20,6 @@ const Login = () => {
         setWarning(false);
         setLoggedIn(true);
         setUser(data.email);
-        console.log(data, data.email);
         navigate("/chat");
       }
     });
