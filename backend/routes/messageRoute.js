@@ -7,8 +7,8 @@ import { verifyToken } from "../middlewares/verifyToken.js";
 export const messageRoute = express.Router();
 
 //GET CONVERSATION
-messageRoute.route("/:id").get(getConversation);
+messageRoute.route("/get").post(verifyToken, getConversation);
 //CREATE CONVERSATION
-messageRoute.route("/").post(createConversation);
+messageRoute.route("/create").post(verifyToken, createConversation);
 //CREATE MESSAGES IN CONVERSATION
 messageRoute.route("/messages").post(verifyToken, createMessage);

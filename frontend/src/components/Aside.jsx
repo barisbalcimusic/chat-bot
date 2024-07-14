@@ -1,12 +1,16 @@
 import { logout } from "../../../backend/controllers/user/logout";
+import { useChatContext } from "../contexts/ChatContext";
 import { useLoginContext } from "../contexts/LoginContext";
 
 const Aside = () => {
-  const { user, loggedIn, setLoggedIn } = useLoginContext();
+  const { user, setLoggedIn } = useLoginContext();
+  const { setMessages } = useChatContext();
 
   //! QUICK LOGIN / LOGOUT ONLY FOR TESTING
   const handleLogout = () => {
     setLoggedIn(false);
+    //EMPTY MESSAGES STATE
+    setMessages([]);
     logout().then((data) => console.log(data));
   };
 
