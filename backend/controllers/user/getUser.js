@@ -1,5 +1,8 @@
 import { compare } from "bcrypt";
 import { User } from "../../models/User.js";
+import jwt from "jsonwebtoken";
+
+const secretKey = process.env.TOKEN_SECRET_KEY;
 
 export const getUser = async (req, res, next) => {
   try {
@@ -42,7 +45,22 @@ export const getUser = async (req, res, next) => {
       });
     }
 
-    res.status(200).json(user.email);
+    const userId = user._id;
+
+    const accessToken = jwt.sign({ userId }, secretKey, {
+      expiresIn: "30s",
+    });
+
+    if (!accessToken) {
+      return next(e);
+    }
+    //SET ACCESS TOKEN INTO COOKIES
+    res.cookie("accessToken", accessToken, {
+      maxAge: 30,
+      httpOnly: true,
+    });
+    //RETURN USER DATA
+    res.status(200).json(user);
   } catch (e) {
     next(e);
   }
