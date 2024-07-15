@@ -4,7 +4,7 @@ import { editProfile } from "../utils/editProfile";
 
 const Settings = () => {
   const { user, setUser, setLoggedIn } = useLoginContext();
-  const [newEmail, setNewEmail] = useState(user);
+  const [newEmail, setNewEmail] = useState(user.email);
 
   const handleSubmit = (e) => {
     e.preventDefault();

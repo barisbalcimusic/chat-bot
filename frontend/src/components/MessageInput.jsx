@@ -15,7 +15,7 @@ const MessageInput = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    //IGNORE EMPTY MESSAGES
+    //INPUT CHECK: IGNORE EMPTY MESSAGES
     if (inputValue.trim().length === 0) return;
 
     try {
@@ -59,20 +59,17 @@ const MessageInput = () => {
     <div className="w-full flex justify-center">
       <div
         id="message-bar"
-        className="w-1/2 flex justify-center items-center p-5 bg-[#D9D9D9] rounded-[10px]"
+        className="w-full flex justify-center items-center p-6 bg-[#484646]"
       >
         <form className="w-full flex justify-center" onSubmit={handleSubmit}>
           <input
             value={inputValue}
             type="text"
             placeholder="your message"
-            className="h-[70px] w-full rounded-[5px] placeholder:italic placeholder:indent-2 indent-2 focus:outline-none"
+            className="message-input h-[60px] w-1/2 placeholder:italic placeholder:indent-2 indent-2 focus:outline-none"
             onChange={(e) => setInputValue(e.target.value)}
           />
-          <button
-            type="submit"
-            className="hover:bg-[#C5E7E5] bg-[#9FC1BF] p-2 "
-          >
+          <button type="submit" className="send-message p-2">
             <FontAwesomeIcon icon={faPaperPlane} />
           </button>
         </form>

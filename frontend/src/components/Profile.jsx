@@ -16,7 +16,12 @@ const Profile = () => {
     setUser(null);
     //EMPTY MESSAGES STATE
     setMessages([]);
-    logout().then((data) => console.log(data));
+    //LOGOUT
+    logout().then(() => {
+      setLoggedIn(false);
+      setUser(null);
+      setMessages([]);
+    });
   };
 
   return (
@@ -27,7 +32,7 @@ const Profile = () => {
         onMouseLeave={() => setDropDown(false)}
         className="profile-div w-[200px] flex flex-col justify-center items-center gap-2 absolute top-[5px] right-[20px] hover:cursor-pointer"
       >
-        <p className="font-bold p-2">{user.email}</p>
+        <p className="font-bold p-2">{user && user.email}</p>
         {dropDown && (
           <ul
             id="drowDown"

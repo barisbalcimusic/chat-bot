@@ -4,6 +4,7 @@ import History from "../components/History";
 import { useLoginContext } from "../contexts/LoginContext";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { logout } from "../utils/logout";
 
 const Chat = () => {
   const { loggedIn } = useLoginContext();
