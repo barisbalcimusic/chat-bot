@@ -37,14 +37,14 @@ const Register = () => {
         value={emailValue}
         type="text"
         className="w-[300px] p-3 placeholder:italic border border-gray-400 rounded-[10px] "
-        placeholder="EmailValue adress"
+        placeholder="Email adress"
         onChange={(e) => setEmailValue(e.target.value)}
       />
       <input
         value={passwordValue}
         type="text"
         className="w-[300px] p-3 placeholder:italic border border-gray-400 rounded-[10px] "
-        placeholder="PasswordValue"
+        placeholder="Password"
         onChange={(e) => setPasswordValue(e.target.value)}
       />
       {warning && (
