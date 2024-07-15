@@ -19,7 +19,13 @@ const messageSchema = new Schema(
 
 const conversationSchema = new Schema(
   {
-    userId: { type: String, required: true, unique: true },
+    userId: {
+      type: mongoose.Types.ObjectId,
+      required: true,
+      unique: true,
+      //REFERENCE TO USER COLLECTION
+      ref: "User",
+    },
     messages: [messageSchema],
   },
   {

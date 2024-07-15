@@ -62,7 +62,7 @@ export const login = async (req, res, next) => {
     });
 
     //RETURN USER DATA
-    res.status(200).json({ email: user.email });
+    res.status(200).json({ email: user.email, userId: user._id });
   } catch (e) {
     next(e);
   }

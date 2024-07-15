@@ -8,8 +8,8 @@ export const getConversation = async (userId) => {
       credentials: "include",
     });
     if (!res.ok) {
-      //IF NO CONVERSATION FOUND RETURN UNDEFINED
-      return undefined;
+      //IF NO CONVERSATION FOUND RETURN FALSE
+      return false;
     }
     const data = await res.json();
     return data;

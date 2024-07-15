@@ -19,7 +19,7 @@ const Login = () => {
       } else {
         setWarning(false);
         setLoggedIn(true);
-        setUser(data.email);
+        setUser(data);
         navigate("/chat");
       }
     });

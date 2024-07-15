@@ -2,36 +2,36 @@ import { useEffect, useRef } from "react";
 import { useChatContext } from "../contexts/ChatContext";
 import { getConversation } from "../utils/getConversation";
 import { createConversation } from "../utils/createConversation";
+import { useLoginContext } from "../contexts/LoginContext";
 
 const History = () => {
+  const { user } = useLoginContext();
   const { messages, setMessages } = useChatContext();
   const historyRef = useRef();
 
   useEffect(() => {
-    //!ONLY FOR TESTING
-    const userId = "test";
-
     //GET ALL MESSAGES & SET AS STATE
     const fetchMessages = async () => {
       try {
-        const conversation = await getConversation(userId);
+        const conversation = await getConversation(user.userId);
         //IF THERE IS A CONVERSATION
         if (conversation) {
           //SET MESSAGES INTO STATE VARIABLE
-          console.log(conversation.messages);
           setMessages(conversation.messages);
           //IF THERE IS NO CONVERSATION
         } else {
           //CREATE A NEW CONVERSATION
-          await createConversation(userId);
+          await createConversation(user.userId);
         }
       } catch (e) {
         console.error(e);
       }
     };
 
-    fetchMessages();
-  }, []);
+    if (user) {
+      fetchMessages();
+    }
+  }, [user]);
 
   useEffect(() => {
     //IN ORDER TO BRING MESSAGEINPUT TO BOTTOM BECAUSE POSITION FIXED DOESN'T WORK PROPERLY

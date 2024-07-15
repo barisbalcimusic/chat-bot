@@ -5,13 +5,15 @@ import { useState } from "react";
 import Modal from "./Modal";
 
 const Profile = () => {
-  const { user, setLoggedIn } = useLoginContext();
+  const { user, setUser, setLoggedIn } = useLoginContext();
   const { setMessages } = useChatContext();
   const [dropDown, setDropDown] = useState(false);
   const [modal, setModal] = useState(false);
 
   const handleLogout = () => {
     setLoggedIn(false);
+    //EMPTY USER DATA
+    setUser(null);
     //EMPTY MESSAGES STATE
     setMessages([]);
     logout().then((data) => console.log(data));
@@ -25,7 +27,7 @@ const Profile = () => {
         onMouseLeave={() => setDropDown(false)}
         className="profile-div w-[200px] flex flex-col justify-center items-center gap-2 absolute top-[5px] right-[20px] hover:cursor-pointer"
       >
-        <p className="font-bold p-2">{user}</p>
+        <p className="font-bold p-2">{user.email}</p>
         {dropDown && (
           <ul
             id="drowDown"

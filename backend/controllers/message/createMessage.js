@@ -21,7 +21,6 @@ export const createMessage = async (req, res, next) => {
     //FIND THE CREATED MESSAGE
     const allMessages = await Conversation.find();
     const createdMessage = allMessages[0].messages.slice(-1)[0];
-    console.log(createdMessage);
     res.status(201).json(createdMessage);
   } catch (e) {
     next(e);

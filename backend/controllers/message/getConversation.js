@@ -3,7 +3,10 @@ import { Conversation } from "../../models/Conversation.js";
 export const getConversation = async (req, res, next) => {
   try {
     const { userId } = req.body;
-    const conversation = await Conversation.findOne({ userId });
+    // FIND CONVERSATION VIA USER ID AND FILL USER ID FIELD WITH REFERENCED DATA IN SCHEMA
+    const conversation = await Conversation.findOne({ userId }).populate(
+      "userId"
+    );
     if (!conversation) {
       return res.status(400).json({ message: "Couldnt get conversation" });
     }

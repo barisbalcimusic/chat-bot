@@ -9,9 +9,6 @@ export const createConversation = async (userId) => {
       body: JSON.stringify({ userId }),
       credentials: "include",
     });
-    if (!res.ok) {
-      throw new Error("Failed to create conversation");
-    }
     const data = await res.json();
     return data;
   } catch (e) {
