@@ -39,7 +39,7 @@ export const register = async (req, res, next) => {
     if (!user)
       res.status(400).json({ error: "DbError", message: "Login failed" });
 
-    res.status(200).json(user);
+    res.status(200).json({ message: "Registration successful" });
   } catch (error) {
     let errors = {};
     if (error instanceof mongoose.Error.ValidationError) {

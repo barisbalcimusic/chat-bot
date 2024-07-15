@@ -2,8 +2,10 @@ import { useState } from "react";
 import { useLoginContext } from "../contexts/LoginContext";
 import { deleteAccount } from "../utils/deleteAccount";
 import Settings from "./Settings";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faX } from "@fortawesome/free-solid-svg-icons";
 
-const Modal = () => {
+const Modal = ({ setModal }) => {
   const { setLoggedIn } = useLoginContext();
   const { user } = useLoginContext();
   const [settingsOpened, setSettingsOpened] = useState();
@@ -19,7 +21,12 @@ const Modal = () => {
 
   return (
     <div className="modal w-screen h-screen flex flex-col justify-center items-center absolute left-0 top-0">
-      <div className="settings-div w-[300px] flex flex-col gap-3 justify-center items-center p-10">
+      <div className="settings-div w-[300px] flex flex-col gap-3 justify-center items-center p-10 relative">
+        <FontAwesomeIcon
+          onClick={() => setModal(false)}
+          icon={faX}
+          className="absolute top-2 right-2 text-2xl hover:text-red-500 hover:cursor-pointer"
+        />
         <p className="p-">Hello, {user}</p>
         <ul className="w-full bg-gray-400">
           <li

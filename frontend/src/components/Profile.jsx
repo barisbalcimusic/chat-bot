@@ -19,7 +19,7 @@ const Profile = () => {
 
   return (
     <div>
-      {modal && <Modal />}
+      {modal && <Modal setModal={setModal} />}
       <div
         onMouseEnter={() => setDropDown(true)}
         onMouseLeave={() => setDropDown(false)}
