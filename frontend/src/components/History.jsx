@@ -1,12 +1,10 @@
 import { useEffect, useRef } from "react";
 import { useChatContext } from "../contexts/ChatContext";
-import { useSubmitContext } from "../contexts/SubmitContext";
 import { getConversation } from "../utils/getConversation";
 import { createConversation } from "../utils/createConversation";
 
 const History = () => {
   const { messages, setMessages } = useChatContext();
-  const { submitted } = useSubmitContext();
   const historyRef = useRef();
 
   useEffect(() => {
@@ -20,6 +18,7 @@ const History = () => {
         //IF THERE IS A CONVERSATION
         if (conversation) {
           //SET MESSAGES INTO STATE VARIABLE
+          console.log(conversation.messages);
           setMessages(conversation.messages);
           //IF THERE IS NO CONVERSATION
         } else {

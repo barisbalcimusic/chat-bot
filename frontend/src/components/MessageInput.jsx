@@ -1,6 +1,6 @@
+import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
 import { saveMessage } from "../utils/saveMessage";
 import { getAnswer } from "../utils/getAnswer";
 import { useSubmitContext } from "../contexts/SubmitContext";
@@ -34,15 +34,15 @@ const MessageInput = () => {
         throw new Error(data.error);
       }
 
-      //ADD QUESTION INTO MESSAGES STATE //* CAN BE IMPROVED
-      setMessages([...messages, post]);
+      //ADD QUESTION INTO MESSAGES STATE
+      setMessages([...messages, data]);
 
       //GET THE ANSWER FROM API
       const { content } = await getAnswer();
       const answer = { userId, message: content, type: "answer" };
       // POST ANSWER INTO CONVERSATION
       await saveMessage(answer);
-      //ADD ANSWER INTO MESSAGES STATE
+      //ADD ANSWER INTO MESSAGES STATE //! should be in same logic as the question --> replace with gpt api
       setMessages((prevMessages) => [...prevMessages, answer]);
       //CLEAR THE INPUT
       setInputValue("");

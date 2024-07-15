@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { set } from "mongoose";
 
 const { Schema, model } = mongoose;
 
@@ -7,6 +7,8 @@ const messageSchema = new Schema(
     message: {
       type: String,
       required: true,
+      //SANITIZATION: CLEAR SPACES
+      set: (value) => value.trim(),
     },
     type: { type: String, required: true },
   },
