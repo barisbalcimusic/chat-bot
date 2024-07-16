@@ -19,6 +19,10 @@
   font-weight: 400;
 }
 
+html {
+  overflow: hidden;
+}
+
 .chat-container {
   background-color: var(--bg);
 }

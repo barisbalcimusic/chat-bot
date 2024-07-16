@@ -21,7 +21,7 @@ const Settings = () => {
   };
 
   return (
-    <div className="settings flex flex-col gap-2">
+    <div className="settings w-full flex flex-col gap-2">
       <form onSubmit={handleSubmit} className="flex flex-col gap-2 p-4">
         <label className="flex flex-col">
           Email:

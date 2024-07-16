@@ -43,7 +43,7 @@ const History = () => {
     <div
       ref={historyRef}
       id="history-div"
-      className="flex flex-col items-center gap-5 p-5 overflow-y-auto mb-[120px]"
+      className="flex flex-col items-center gap-5 p-5 overflow-y-auto mb-[100px]"
     >
       {messages.map((message, index) => (
         <p

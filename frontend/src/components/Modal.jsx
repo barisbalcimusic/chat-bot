@@ -20,7 +20,7 @@ const Modal = ({ setModal }) => {
   };
 
   return (
-    <div className="modal w-screen h-screen flex flex-col justify-center items-center absolute left-0 top-0">
+    <div className="modal w-screen h-screen flex flex-col justify-center items-center absolute z-10 left-0 top-0">
       <div className="settings-div w-[90%] max-w-[600px] flex flex-col gap-5 justify-center items-center p-10 relative rounded-[10px]">
         <FontAwesomeIcon
           onClick={() => setModal(false)}
@@ -34,22 +34,22 @@ const Modal = ({ setModal }) => {
         <ul className="w-full flex flex-col items-center gap-2">
           <li
             onClick={handleSettings}
-            className="setting w-[80%] max-w-[300px] text-center hover:cursor-pointer font-bold p-3"
+            className="setting w-full max-w-[300px] text-center hover:cursor-pointer font-bold p-3"
           >
             Edit Profile
           </li>
           {settingsOpened && (
-            <li>
+            <li className="w-full max-w-[300px]">
               <Settings />
             </li>
           )}
           <li
             onClick={handleDelete}
-            className="setting w-[80%] max-w-[300px] text-center hover:cursor-pointer font-bold p-3"
+            className="setting w-full max-w-[300px] text-center hover:cursor-pointer font-bold p-3"
           >
             Delete Account
           </li>
-          <li className="setting w-[80%] max-w-[300px] text-center hover:cursor-pointer font-bold p-3">
+          <li className="setting w-full max-w-[300px] text-center hover:cursor-pointer font-bold p-3">
             Logout
           </li>
         </ul>

@@ -58,14 +58,14 @@ const MessageInput = () => {
   return (
     <div
       id="message-bar"
-      className="message-bar w-full flex justify-center items-center p-6 absolute bottom-0 left-0"
+      className="message-bar w-full h-[100px] flex justify-center items-center p-6 absolute bottom-0 left-0"
     >
       <form className="w-full flex justify-center" onSubmit={handleSubmit}>
         <input
           value={inputValue}
           type="text"
           placeholder="your message"
-          className="message-input h-[60px] w-1/2 placeholder:italic placeholder:indent-2 indent-2 focus:outline-none"
+          className="message-input w-full max-w-[500px] h-[60px] placeholder:italic placeholder:indent-2 indent-2 focus:outline-none"
           onChange={(e) => setInputValue(e.target.value)}
         />
         <button type="submit" className="send-message p-2">
