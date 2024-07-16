@@ -12,6 +12,7 @@ const MessageInput = () => {
   const { setSubmitted } = useSubmitContext();
   const { messages, setMessages } = useChatContext();
   const { user, setLoggedIn } = useLoginContext();
+  const [typing, setTyping] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -34,9 +35,12 @@ const MessageInput = () => {
         setLoggedIn(false);
         throw new Error(data.error);
       }
-
+      //CLEAR THE INPUT
+      setInputValue("");
       //ADD QUESTION INTO MESSAGES STATE
       setMessages([...messages, data]);
+      //ACTIVATE TYPING ANIMATION
+      setTyping(true);
 
       //GET THE ANSWER FROM API
       const { content } = await getAnswer();
@@ -45,8 +49,8 @@ const MessageInput = () => {
       await saveMessage(answer);
       //ADD ANSWER INTO MESSAGES STATE //! should be in same logic as the question --> replace with gpt api
       setMessages((prevMessages) => [...prevMessages, answer]);
-      //CLEAR THE INPUT
-      setInputValue("");
+      //DEACTIVATE TYPING ANIMATION
+      setTyping(false);
 
       //TRIGGER RE-RENDERING FOR HISTORY
       setSubmitted((value) => !value);
@@ -60,11 +64,13 @@ const MessageInput = () => {
       id="message-bar"
       className="message-bar w-full h-[100px] flex justify-center items-center p-6 absolute bottom-0 left-0"
     >
-      <form className="w-full flex justify-center" onSubmit={handleSubmit}>
+      {typing && <p className="absolute text-xl text-white">typing...</p>}
+      <form className="w-full  flex justify-center" onSubmit={handleSubmit}>
         <input
           value={inputValue}
           type="text"
-          placeholder="your message"
+          disabled={typing ? true : false}
+          placeholder={typing ? "" : "your message"}
           className="message-input w-full max-w-[500px] h-[60px] placeholder:italic placeholder:indent-2 indent-2 focus:outline-none"
           onChange={(e) => setInputValue(e.target.value)}
         />
