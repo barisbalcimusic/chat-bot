@@ -40,14 +40,11 @@ const Profile = () => {
           >
             <li
               onClick={() => setModal(true)}
-              className="menu w-full font-bold text-center p-3"
+              className="menu w-full text-center p-3"
             >
               Settings
             </li>
-            <li
-              onClick={handleLogout}
-              className="menu w-full font-bold text-center p-3"
-            >
+            <li onClick={handleLogout} className="menu w-full text-center p-3">
               Logout
             </li>
           </ul>

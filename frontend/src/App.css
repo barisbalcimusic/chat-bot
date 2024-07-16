@@ -1,16 +1,22 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
 :root {
   --primary: rgb(154, 184, 182);
   --primaryHover: rgb(197, 215, 214);
   --secondary: rgb(29, 78, 216);
   --secondaryHover: rgb(118, 146, 224);
   --hover: rgb(229, 243, 232);
-  --question: rgb(247, 247, 247);
-  --bg: #5d6d74;
+  --question: rgb(235, 232, 232);
+  --bg: #65777f;
   --inputDiv: #d9d9d9;
   --modal: rgba(41, 41, 41, 0.9);
-  --scrollbar: #8f7c7c;
+  --scrollbar: #7ab39e;
+  --messagebar: #484646;
+}
 
-  font-family: "Courier New", Courier, monospace;
+* {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
 }
 
 .chat-container {
@@ -62,13 +68,16 @@
 .message-input:focus {
   box-shadow: 0px 0px 10px 4px rgba(255, 79, 79, 0.6);
 }
+.message-bar {
+  background-color: var(--messagebar);
+}
 
 /* SCROLLBAR */
 ::-webkit-scrollbar {
-  width: 7px;
+  width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: white;
 }
 ::-webkit-scrollbar-thumb {
   background: var(--scrollbar);

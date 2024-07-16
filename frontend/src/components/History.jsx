@@ -34,11 +34,6 @@ const History = () => {
   }, [user]);
 
   useEffect(() => {
-    //IN ORDER TO BRING MESSAGEINPUT TO BOTTOM BECAUSE POSITION FIXED DOESN'T WORK PROPERLY
-    historyRef.current.style.minHeight = `${innerHeight - 120}px`;
-  }, []);
-
-  useEffect(() => {
     //AUTO SCROLL TO BOTTOM
     const historyDiv = historyRef.current;
     historyDiv.scrollTop = historyDiv.scrollHeight;
@@ -48,7 +43,7 @@ const History = () => {
     <div
       ref={historyRef}
       id="history-div"
-      className="flex flex-col items-center gap-5 p-5 overflow-y-auto"
+      className="flex flex-col items-center gap-5 p-5 overflow-y-auto mb-[120px]"
     >
       {messages.map((message, index) => (
         <p

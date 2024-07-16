@@ -21,11 +21,11 @@ const Modal = ({ setModal }) => {
 
   return (
     <div className="modal w-screen h-screen flex flex-col justify-center items-center absolute left-0 top-0">
-      <div className="settings-div w-[90%] max-w-[600px] flex flex-col gap-5 justify-center items-center p-10 relative">
+      <div className="settings-div w-[90%] max-w-[600px] flex flex-col gap-5 justify-center items-center p-10 relative rounded-[10px]">
         <FontAwesomeIcon
           onClick={() => setModal(false)}
           icon={faX}
-          className="absolute top-2 right-2 text-2xl hover:text-red-500 hover:cursor-pointer"
+          className="absolute top-3 right-3 text-3xl hover:text-red-600 hover:cursor-pointer"
         />
         <div>
           <p className="text-3xl">Hello,</p>

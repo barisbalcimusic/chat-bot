@@ -56,24 +56,22 @@ const MessageInput = () => {
   };
 
   return (
-    <div className="w-full flex justify-center">
-      <div
-        id="message-bar"
-        className="w-full flex justify-center items-center p-6 bg-[#484646]"
-      >
-        <form className="w-full flex justify-center" onSubmit={handleSubmit}>
-          <input
-            value={inputValue}
-            type="text"
-            placeholder="your message"
-            className="message-input h-[60px] w-1/2 placeholder:italic placeholder:indent-2 indent-2 focus:outline-none"
-            onChange={(e) => setInputValue(e.target.value)}
-          />
-          <button type="submit" className="send-message p-2">
-            <FontAwesomeIcon icon={faPaperPlane} />
-          </button>
-        </form>
-      </div>
+    <div
+      id="message-bar"
+      className="message-bar w-full flex justify-center items-center p-6 absolute bottom-0 left-0"
+    >
+      <form className="w-full flex justify-center" onSubmit={handleSubmit}>
+        <input
+          value={inputValue}
+          type="text"
+          placeholder="your message"
+          className="message-input h-[60px] w-1/2 placeholder:italic placeholder:indent-2 indent-2 focus:outline-none"
+          onChange={(e) => setInputValue(e.target.value)}
+        />
+        <button type="submit" className="send-message p-2">
+          <FontAwesomeIcon icon={faPaperPlane} />
+        </button>
+      </form>
     </div>
   );
 };
