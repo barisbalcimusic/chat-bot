@@ -8,6 +8,9 @@ frontend/*.local
 backend/node_modules/
 backend/.env
 
+.env
+node_modules/
+
 # Logs
 logs/
 *.log
