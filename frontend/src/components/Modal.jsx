@@ -4,6 +4,7 @@ import { deleteAccount } from "../utils/deleteAccount";
 import Settings from "./Settings";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX } from "@fortawesome/free-solid-svg-icons";
+import { logout } from "../utils/logout";
 
 const Modal = ({ setModal }) => {
   const { setLoggedIn } = useLoginContext();
@@ -17,6 +18,14 @@ const Modal = ({ setModal }) => {
 
   const handleSettings = () => {
     setSettingsOpened((value) => !value);
+  };
+
+  const handleLogout = () => {
+    logout().then(() => {
+      setLoggedIn(false);
+      setUser(null);
+      setMessages([]);
+    });
   };
 
   return (
@@ -49,7 +58,10 @@ const Modal = ({ setModal }) => {
           >
             Delete Account
           </li>
-          <li className="setting w-full max-w-[300px] text-center hover:cursor-pointer font-bold p-3">
+          <li
+            onClick={handleLogout}
+            className="setting w-full max-w-[300px] text-center hover:cursor-pointer font-bold p-3"
+          >
             Logout
           </li>
         </ul>

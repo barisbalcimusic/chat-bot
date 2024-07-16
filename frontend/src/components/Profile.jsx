@@ -11,12 +11,6 @@ const Profile = () => {
   const [modal, setModal] = useState(false);
 
   const handleLogout = () => {
-    setLoggedIn(false);
-    //EMPTY USER DATA
-    setUser(null);
-    //EMPTY MESSAGES STATE
-    setMessages([]);
-    //LOGOUT
     logout().then(() => {
       setLoggedIn(false);
       setUser(null);
@@ -30,7 +24,7 @@ const Profile = () => {
       <div
         onMouseEnter={() => setDropDown(true)}
         onMouseLeave={() => setDropDown(false)}
-        className="profile-div w-[200px] flex flex-col justify-center items-center gap-2 absolute top-[5px] right-[20px] hover:cursor-pointer"
+        className="profile-div w-full lg:w-[200px] flex flex-col justify-center items-center gap-2 absolute top-0 lg:top-[5px] right-0 lg:right-[20px] hover:cursor-pointer"
       >
         <p className="font-bold p-2">{user && user.email}</p>
         {dropDown && (
@@ -40,11 +34,14 @@ const Profile = () => {
           >
             <li
               onClick={() => setModal(true)}
-              className="menu w-full text-center p-3"
+              className="menu w-full text-center p-3 border-b-[1px] border-gray-700 hover:text-black"
             >
               Settings
             </li>
-            <li onClick={handleLogout} className="menu w-full text-center p-3">
+            <li
+              onClick={handleLogout}
+              className="menu w-full text-center p-3 hover:text-black"
+            >
               Logout
             </li>
           </ul>

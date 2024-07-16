@@ -66,25 +66,22 @@ const MessageInput = () => {
   return (
     <div
       id="message-bar"
-      className="message-bar w-full h-[100px] flex flex-col justify-center items-center p-6 absolute bottom-0 left-0"
+      className="message-bar w-full h-[100px] flex flex-col justify-center items-center absolute bottom-0 left-0"
     >
       {typing && <p className="absolute text-xl text-white">typing...</p>}
-      {limitReached && (
-        <p className="absolute text-xl text-white font-bold">
+      {/* {limitReached && (
+        <p className="absolute text-xs text-white font-bold">
           You have reached your message limit
         </p>
-      )}
-      <small className="text-white">
-        {50 - inputValue.length} characters remaining
-      </small>
-      <form className="w-full  flex justify-center" onSubmit={handleSubmit}>
+      )} */}
+      <form className="w-full flex justify-center mt-4" onSubmit={handleSubmit}>
         <input
           maxLength={50}
           value={inputValue}
           type="text"
           disabled={typing || limitReached ? true : false}
           placeholder={typing || limitReached ? "" : "your message"}
-          className="message-input w-full max-w-[500px] h-[60px] placeholder:italic placeholder:indent-2 indent-2 focus:outline-none"
+          className="message-input w-[80%] max-w-[500px] h-[60px] placeholder:italic placeholder:indent-4 indent-4 focus:outline-none"
           onChange={(e) => setInputValue(e.target.value)}
         />
         <button
@@ -95,6 +92,11 @@ const MessageInput = () => {
           <FontAwesomeIcon icon={faPaperPlane} />
         </button>
       </form>
+      <small className="text-white">
+        {limitReached
+          ? "You have reached your message limit"
+          : `${50 - inputValue.length} characters remaining`}
+      </small>
     </div>
   );
 };

@@ -33,14 +33,14 @@ html {
   background-color: var(--primaryHover);
 }
 .profile-div {
-  background-color: var(--primary);
+  background-color: rgba(154, 184, 182, 0.8);
 }
 .dropdown {
-  background-color: var(--primaryHover);
-  color: black;
+  background-color: rgba(72, 70, 70, 0.7);
+  color: white;
 }
 .menu:hover {
-  background-color: var(--hover);
+  background-color: var(--primaryHover);
 }
 .modal {
   background-color: var(--modal);
@@ -52,7 +52,7 @@ html {
   background-color: var(--primaryHover);
 }
 .setting:hover {
-  background-color: rgb(245, 225, 225);
+  background-color: var(--hover);
 }
 .settings {
   background-color: var(--hover);
