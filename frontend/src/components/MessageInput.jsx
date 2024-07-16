@@ -66,7 +66,7 @@ const MessageInput = () => {
   return (
     <div
       id="message-bar"
-      className="message-bar w-full h-[100px] flex justify-center items-center p-6 absolute bottom-0 left-0"
+      className="message-bar w-full h-[100px] flex flex-col justify-center items-center p-6 absolute bottom-0 left-0"
     >
       {typing && <p className="absolute text-xl text-white">typing...</p>}
       {limitReached && (
@@ -74,8 +74,12 @@ const MessageInput = () => {
           You have reached your message limit
         </p>
       )}
+      <small className="text-white">
+        {50 - inputValue.length} characters remaining
+      </small>
       <form className="w-full  flex justify-center" onSubmit={handleSubmit}>
         <input
+          maxLength={50}
           value={inputValue}
           type="text"
           disabled={typing || limitReached ? true : false}
