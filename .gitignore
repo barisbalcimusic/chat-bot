@@ -3,8 +3,8 @@ frontend/dist/
 frontend/dist-ssr/
 frontend/*.local
 
-node_modules/
-.env
+**/node_modules/
+**/.env
 
 # Logs
 logs/
