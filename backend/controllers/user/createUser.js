@@ -1,6 +1,8 @@
 import { hash } from "bcrypt";
 import { User } from "../../models/User.js";
 import mongoose from "mongoose";
+import { transporterFunc, mailOptionsFunc } from "../../utils/mailConfig.js";
+import { sendMail } from "../../utils/sendMail.js";
 
 export const register = async (req, res, next) => {
   try {
@@ -38,6 +40,11 @@ export const register = async (req, res, next) => {
 
     if (!user)
       res.status(400).json({ error: "DbError", message: "Login failed" });
+
+    //SEND CONFIRMATION EMAIL ABOUT REGISTERATION
+    const transporter = transporterFunc(email);
+    const mailOptions = mailOptionsFunc(email);
+    sendMail(transporter, mailOptions);
 
     res.status(200).json({ message: "Registration successful" });
   } catch (error) {
