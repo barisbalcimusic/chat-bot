@@ -13,6 +13,7 @@ const MessageInput = () => {
   const { messages, setMessages } = useChatContext();
   const { user, setLoggedIn } = useLoginContext();
   const [typing, setTyping] = useState(false);
+  const [limitReached, setLimitReached] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,11 +29,14 @@ const MessageInput = () => {
 
       //POST QUESTION INTO CONVERSATION
       const data = await saveMessage(post);
-
       //CHECK FOR AUTHENTICATION ERROR
       if (data.error) {
-        //LOGOUT USER
-        setLoggedIn(false);
+        if (data.error === "MessageLimit") {
+          setInputValue("");
+          setLimitReached(true);
+        }
+        //!LOGOUT USER
+        // setLoggedIn(false);
         throw new Error(data.error);
       }
       //CLEAR THE INPUT
@@ -65,16 +69,25 @@ const MessageInput = () => {
       className="message-bar w-full h-[100px] flex justify-center items-center p-6 absolute bottom-0 left-0"
     >
       {typing && <p className="absolute text-xl text-white">typing...</p>}
+      {limitReached && (
+        <p className="absolute text-xl text-white font-bold">
+          You have reached your message limit
+        </p>
+      )}
       <form className="w-full  flex justify-center" onSubmit={handleSubmit}>
         <input
           value={inputValue}
           type="text"
-          disabled={typing ? true : false}
-          placeholder={typing ? "" : "your message"}
+          disabled={typing || limitReached ? true : false}
+          placeholder={typing || limitReached ? "" : "your message"}
           className="message-input w-full max-w-[500px] h-[60px] placeholder:italic placeholder:indent-2 indent-2 focus:outline-none"
           onChange={(e) => setInputValue(e.target.value)}
         />
-        <button type="submit" className="send-message p-2">
+        <button
+          type="submit"
+          className="send-message p-2"
+          disabled={typing || limitReached ? true : false}
+        >
           <FontAwesomeIcon icon={faPaperPlane} />
         </button>
       </form>

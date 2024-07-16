@@ -15,12 +15,26 @@ export const createMessage = async (req, res, next) => {
     }
     //FIND THE CONVERSATION WITH USER ID
     const conversation = await Conversation.findOne({ userId });
+
+    //GET THE COUNT OF QUESTION MESSAGES
+    const messagesCount = conversation.messages.filter(
+      (message) => message.type === "question"
+    ).length;
+
+    if (messagesCount >= 5) {
+      return res
+        .status(400)
+        .json({ error: "MessageLimit", message: "Message limit reached" });
+    }
+
     //ADD MESSAGE TO THIS CONVERSATION
     conversation.messages.push({ message: sanitizedMessage, type });
     await conversation.save();
+
     //FIND THE CREATED MESSAGE
     const allMessages = await Conversation.find();
     const createdMessage = allMessages[0].messages.slice(-1)[0];
+
     res.status(201).json(createdMessage);
   } catch (e) {
     next(e);
