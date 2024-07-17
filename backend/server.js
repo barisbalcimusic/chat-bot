@@ -24,7 +24,7 @@ await connectDB();
 
 //ROUTES
 app.use("/api/conversations", messageRoute);
-app.use("/api/questions", questionsRoute);
+app.use("/api/gpt", questionsRoute);
 app.use("/api/users", userRoute);
 
 //ERROR HANDLER

@@ -12,15 +12,11 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    //CAPTCHA CHECK
-    // checkCaptcha();
     //CLEAR SPACES
     const email = emailValue.trim();
     const password = passwordValue.trim();
-
     //GET CAPTCHA VALUE
     const captchaValue = recaptcha.current.getValue();
-
     //SEND USER DATA AND CAPTCHA VALUE TO REGISTER FUNCTION
     register({ email, password, captchaValue }).then((data) => {
       //IF REGISTRATION INVALID SET THE WARNING, ELSE DEACTIVATE
@@ -33,31 +29,6 @@ const Register = () => {
       }
     });
   };
-
-  //CAPTCHA
-  // const checkCaptcha = async () => {
-  //   try {
-  //     const captchaValue = recaptcha.current.getValue();
-  //     console.log(captchaValue);
-  //     if (!captchaValue) {
-  //       return alert("Please verify the reCAPTCHA!");
-  //     } else {
-  //       const res = await fetch("http://localhost:3000/api/users/register", {
-  //         method: "POST",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //         body: JSON.stringify({ captchaValue: captchaValue }),
-  //       });
-  //       const data = await res.json();
-  //       if (data.success) {
-  //         return alert("reCAPTCHA validation failed!");
-  //       }
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
 
   return (
     <form

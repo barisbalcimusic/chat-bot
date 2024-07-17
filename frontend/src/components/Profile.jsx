@@ -24,7 +24,7 @@ const Profile = () => {
       <div
         onMouseEnter={() => setDropDown(true)}
         onMouseLeave={() => setDropDown(false)}
-        className="profile-div w-full lg:w-[200px] flex flex-col justify-center items-center gap-2 absolute top-0 lg:top-[5px] right-0 lg:right-[20px] hover:cursor-pointer"
+        className="profile-div w-full lg:w-auto flex flex-col justify-center items-center gap-2 absolute top-0 lg:top-[5px] right-0 lg:right-[20px] hover:cursor-pointer"
       >
         <p className="font-bold p-2 tracking-wider text-gray-700">
           {user && user.email}

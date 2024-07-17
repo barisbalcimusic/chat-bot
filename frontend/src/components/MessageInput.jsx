@@ -2,10 +2,10 @@ import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { saveMessage } from "../utils/saveMessage";
-import { getAnswer } from "../utils/getAnswer";
 import { useSubmitContext } from "../contexts/SubmitContext";
 import { useChatContext } from "../contexts/ChatContext";
 import { useLoginContext } from "../contexts/LoginContext";
+import { askChatGPT } from "../utils/askChatGPT";
 
 const MessageInput = () => {
   const [inputValue, setInputValue] = useState("");
@@ -27,17 +27,18 @@ const MessageInput = () => {
         type: "question",
       };
 
-      //POST QUESTION INTO CONVERSATION
+      //SAVE QUESTION INTO DB
       const data = await saveMessage(post);
       //CHECK FOR AUTHENTICATION ERROR
       if (data.error) {
         if (data.error === "MessageLimit") {
           setInputValue("");
           setLimitReached(true);
+        } else {
+          //!LOGOUT USER
+          // setLoggedIn(false);
+          throw new Error(data.error);
         }
-        //!LOGOUT USER
-        // setLoggedIn(false);
-        throw new Error(data.error);
       }
       //CLEAR THE INPUT
       setInputValue("");
@@ -46,13 +47,20 @@ const MessageInput = () => {
       //ACTIVATE TYPING ANIMATION
       setTyping(true);
 
-      //GET THE ANSWER FROM API
-      const { content } = await getAnswer();
-      const answer = { userId: user.userId, message: content, type: "answer" };
-      // POST ANSWER INTO CONVERSATION
+      //SEND CHATGPT THE QUESTION AND GET THE ANSWER
+      const gptAnswer = await askChatGPT(inputValue);
+
+      const answer = {
+        userId: user.userId,
+        message: gptAnswer,
+        type: "answer",
+      };
+      //SAVE ANSWER INTO DB
       await saveMessage(answer);
-      //ADD ANSWER INTO MESSAGES STATE //! should be in same logic as the question --> replace with gpt api
+
+      //ADD ANSWER INTO MESSAGES STATE
       setMessages((prevMessages) => [...prevMessages, answer]);
+
       //DEACTIVATE TYPING ANIMATION
       setTyping(false);
 
@@ -69,11 +77,6 @@ const MessageInput = () => {
       className="message-bar w-full h-[100px] flex flex-col justify-center items-center absolute bottom-0 left-0"
     >
       {typing && <p className="absolute text-xl text-white">typing...</p>}
-      {/* {limitReached && (
-        <p className="absolute text-xs text-white font-bold">
-          You have reached your message limit
-        </p>
-      )} */}
       <form className="w-full flex justify-center mt-4" onSubmit={handleSubmit}>
         <input
           maxLength={50}

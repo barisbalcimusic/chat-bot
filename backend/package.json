@@ -21,6 +21,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.4.4",
     "nodemailer": "^6.9.14",
+    "openai": "^4.52.7",
     "sanitize-html": "^2.13.0",
     "validator": "^13.12.0"
   }
