@@ -1,7 +1,7 @@
 export const saveMessage = async (post) => {
   try {
     const res = await fetch(
-      `http://localhost:3000/api/conversations/messages`,
+      `https://backendfinalproject.onrender.com/api/conversations/messages`,
       {
         method: "POST",
         headers: {
