@@ -6,8 +6,8 @@ import { sendMail } from "../../utils/sendMail.js";
 
 export const register = async (req, res, next) => {
   try {
-    //TAKE USER DATA FROM BODY
     const { email, password } = req.body;
+
     //CHECK IF USER DATA IS EMPTY
     if (!email || !password) {
       return res.status(400).json({
@@ -15,6 +15,7 @@ export const register = async (req, res, next) => {
         message: "Email and password mustn't be empty",
       });
     }
+
     //LENGTH VALIDATION HERE BACAUSE OF HASHING
     if (password.length < 8) {
       return res.status(400).json({
@@ -23,10 +24,13 @@ export const register = async (req, res, next) => {
       });
     }
 
+    //CHECK IF USER EXISTS VIA EMAIL
     const userExists = await User.findOne({ email });
 
+    //IF USER ALREADY EXISTS RETURN ERROR
     if (userExists) {
-      return res.status(400).json({
+      //409 FOR CONFLICTS
+      return res.status(409).json({
         error: "AlreadyRegistered",
         message: "This email adress is already registered.",
       });
@@ -38,25 +42,30 @@ export const register = async (req, res, next) => {
     //SAVE USER DATA INTO DB
     const user = await User.create({ email, password: hashedPassword });
 
+    //CHECK FOR ERRORS DURING REGISTRATION
     if (!user)
-      res.status(400).json({ error: "DbError", message: "Login failed" });
+      res.status(400).json({
+        error: "DbError",
+        message: "Registration couldn't be completed",
+      });
 
     //SEND CONFIRMATION EMAIL ABOUT REGISTERATION
     const transporter = transporterFunc(email);
     const mailOptions = mailOptionsFunc(email);
     sendMail(transporter, mailOptions);
 
-    res.status(200).json({ message: "Registration successful" });
-  } catch (error) {
+    //RETURN SUCCESS MESSAGE
+    res.status(201).json({ message: "Registration successful" });
+  } catch (e) {
+    //GET THE TYPE OF VALIDATION ERROR
     let errors = {};
-    if (error instanceof mongoose.Error.ValidationError) {
-      //FIND THE ERROR TYPE
-      for (let field in error.errors) {
-        errors["error"] = error.errors[field].message;
+    if (e instanceof mongoose.Error.ValidationError) {
+      for (let field in e.errors) {
+        errors["error"] = e.errors[field].message;
         next(errors);
         return;
       }
     }
-    next(error);
+    next(e);
   }
 };

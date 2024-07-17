@@ -44,10 +44,12 @@ export const login = async (req, res, next) => {
       });
     }
 
+    //GET ACCESS TOKEN
     const userId = user._id;
     const accessToken = jwt.sign({ userId }, secretKey, {
-      expiresIn: "300s",
+      expiresIn: "600s",
     });
+
     if (!accessToken) {
       return res.status(500).json({
         error: "TokenCreationError",
@@ -57,7 +59,7 @@ export const login = async (req, res, next) => {
 
     //SET ACCESS TOKEN INTO COOKIES
     res.cookie("accessToken", accessToken, {
-      maxAge: 300 * 1000,
+      maxAge: 600 * 1000,
       httpOnly: true,
     });
 

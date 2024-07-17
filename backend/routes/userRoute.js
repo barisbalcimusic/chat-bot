@@ -15,7 +15,7 @@ userRoute.route("/register").post(captcha, register);
 userRoute.route("/login").post(login);
 //LOGOUT
 userRoute.route("/logout").post(logout);
-//DELETE USER
-userRoute.route("/delete").delete(verifyToken, deleteUser);
 //UPDATE USER
 userRoute.route("/update").patch(verifyToken, updateUser);
+//DELETE USER
+userRoute.route("/delete").delete(verifyToken, deleteUser);

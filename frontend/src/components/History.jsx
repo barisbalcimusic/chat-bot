@@ -43,16 +43,16 @@ const History = () => {
     <div
       ref={historyRef}
       id="history-div"
-      className="flex flex-col items-center gap-5 p-5 overflow-y-auto mb-[100px]"
+      className="flex flex-col items-center gap-2 lg:gap-5 p-3 pt-12 overflow-y-auto mb-[100px]"
     >
       {messages.map((message, index) => (
         <p
           key={index}
           className={
             (message.type === "answer" &&
-              "answer w-full max-w-[800px] p-5 rounded-[10px]") ||
+              "answer w-full max-w-[800px] p-4 lg:p-5 rounded-[10px]") ||
             (message.type === "question" &&
-              "question p-5 w-full max-w-[800px] rounded-[10px]")
+              "question w-full max-w-[800px] p-4 lg:p-5 rounded-[10px]")
           }
         >
           {message.message}

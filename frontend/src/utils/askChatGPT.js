@@ -8,7 +8,6 @@ export const askChatGPT = async (question) => {
       credentials: "include",
     });
     const data = await res.json();
-    console.log(data);
     return data.answer;
   } catch (e) {
     console.error(e);

@@ -21,7 +21,6 @@ const Register = () => {
     register({ email, password, captchaValue }).then((data) => {
       //IF REGISTRATION INVALID SET THE WARNING, ELSE DEACTIVATE
       if (data.error) {
-        console.log(data);
         setWarning(data.error);
       } else {
         setWarning(false);
@@ -56,7 +55,7 @@ const Register = () => {
             ? "Email or password must'n be empty"
             : warning === "AlreadyRegistered"
             ? "This email adress is already registered"
-            : warning === "InvalidEmailValueFormat"
+            : warning === "InvalidEmailFormat"
             ? "The email format is invalid"
             : warning === "InvalidLength"
             ? "The password must be longer than 8 characters"

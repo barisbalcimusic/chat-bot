@@ -21,6 +21,7 @@ export const createMessage = async (req, res, next) => {
       (message) => message.type === "question"
     ).length;
 
+    //CHECK IF USER HAS REACHED MESSAGE LIMIT
     if (messagesCount >= 5) {
       return res
         .status(400)
@@ -29,12 +30,11 @@ export const createMessage = async (req, res, next) => {
 
     //ADD MESSAGE TO THIS CONVERSATION
     conversation.messages.push({ message: sanitizedMessage, type });
-    await conversation.save();
-
-    //FIND THE CREATED MESSAGE
-    const allMessages = await Conversation.find();
-    const createdMessage = allMessages[0].messages.slice(-1)[0];
-
+    //SAVE AND GET THE CONVERSATION
+    const allMessages = await conversation.save();
+    //GET THE LAST MESSAGE FROM CONVERSATION
+    const createdMessage = allMessages.messages.slice(-1)[0];
+    //RETURN THE CREATED MESSAGE
     res.status(201).json(createdMessage);
   } catch (e) {
     next(e);

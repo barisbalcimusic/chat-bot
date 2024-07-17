@@ -10,6 +10,7 @@ const userSchema = new Schema(
       required: true,
       unique: true,
       validate: {
+        //VALIDATION: IF EMAIL FORMAT IS TRUE
         validator: function (value) {
           return validator.isEmail(value);
         },

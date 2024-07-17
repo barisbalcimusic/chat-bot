@@ -23,9 +23,9 @@ app.use(express.json());
 await connectDB();
 
 //ROUTES
+app.use("/api/users", userRoute);
 app.use("/api/conversations", messageRoute);
 app.use("/api/gpt", questionsRoute);
-app.use("/api/users", userRoute);
 
 //ERROR HANDLER
 app.use(errorMiddleware);

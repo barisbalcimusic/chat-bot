@@ -5,15 +5,18 @@ import Settings from "./Settings";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX } from "@fortawesome/free-solid-svg-icons";
 import { logout } from "../utils/logout";
+import { useChatContext } from "../contexts/ChatContext";
 
 const Modal = ({ setModal }) => {
-  const { setLoggedIn } = useLoginContext();
-  const { user } = useLoginContext();
+  const { setLoggedIn, user, setUser } = useLoginContext();
   const [settingsOpened, setSettingsOpened] = useState();
+  const { setMessages } = useChatContext();
 
   const handleDelete = () => {
+    deleteAccount(user.email).then((data) => console.log(data));
     setLoggedIn(false);
-    deleteAccount(user).then((data) => console.log(data));
+    setUser(null);
+    setMessages([]);
   };
 
   const handleSettings = () => {
@@ -38,7 +41,7 @@ const Modal = ({ setModal }) => {
         />
         <div>
           <p className="text-3xl">Hello,</p>
-          <p className="text-3xl font-bold">{user.email}</p>
+          <p className="text-3xl font-bold">{user && user.email}</p>
         </div>
         <ul className="w-full flex flex-col items-center gap-2">
           <li

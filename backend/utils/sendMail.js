@@ -1,7 +1,7 @@
 export const sendMail = async (transporter, mailOptions) => {
   try {
+    //SEND MAIL
     await transporter.sendMail(mailOptions);
-    console.log("Email has been sent");
   } catch (error) {
     console.error(error);
   }

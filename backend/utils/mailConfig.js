@@ -3,6 +3,7 @@ import nodemailer from "nodemailer";
 const sender = "chatbotbybaris@gmail.com";
 const password = process.env.APP_PASSWORD;
 
+//EMAIL CONFIGURATION
 export const transporterFunc = (receiver) => {
   const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
@@ -16,6 +17,7 @@ export const transporterFunc = (receiver) => {
   return transporter;
 };
 
+//MAIL OPTIONS
 export const mailOptionsFunc = (receiver) => {
   const mailOptions = {
     from: sender,
