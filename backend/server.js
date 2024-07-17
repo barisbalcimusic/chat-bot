@@ -8,16 +8,24 @@ import { userRoute } from "./routes/userRoute.js";
 import cookieParser from "cookie-parser";
 
 const app = express();
-//NECCESSARY TO READ COOKIES FROM REQUEST OBJECT
-app.use(cookieParser());
 
+app.use(express.json());
+
+//CORS ip settings
+const allowedOrigins = [
+  "http://localhost:5173",
+  "http://localhost:5174",
+  "https://chatbotbybaris.netlify.app",
+];
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: allowedOrigins,
     credentials: true,
   })
 );
-app.use(express.json());
+
+//NECCESSARY TO READ COOKIES FROM REQUEST OBJECT
+app.use(cookieParser());
 
 //CONNECT TO DB
 await connectDB();
