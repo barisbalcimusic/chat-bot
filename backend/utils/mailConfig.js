@@ -1,4 +1,7 @@
 import nodemailer from "nodemailer";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const sender = "chatbotbybaris@gmail.com";
 const password = process.env.APP_PASSWORD;

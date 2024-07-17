@@ -6,8 +6,11 @@ import cors from "cors";
 import { questionsRoute } from "./routes/questionsRoute.js";
 import { userRoute } from "./routes/userRoute.js";
 import cookieParser from "cookie-parser";
+import dotenv from "dotenv";
 
 const app = express();
+
+dotenv.config();
 
 app.use(express.json());
 
@@ -28,7 +31,8 @@ app.use(
 app.use(cookieParser());
 
 //CONNECT TO DB
-await connectDB();
+const db_url = process.env.MONGO_URI;
+await connectDB(db_url);
 
 //ROUTES
 app.use("/api/users", userRoute);
