@@ -22,11 +22,13 @@ export const updateUser = async (req, res, next) => {
     if (!updatedUser) {
       return res
         .status(400)
-        .json({ email: "UserNotFound", message: "User not found" });
+        .json({ error: "UserNotFound", message: "User not found" });
     }
 
     //RETURN SUCCESS MESSAGE
-    res.status(200).json({ message: "User successfully updated" });
+    res
+      .status(200)
+      .json({ status: "success", message: "User successfully updated" });
   } catch (e) {
     next(e);
   }

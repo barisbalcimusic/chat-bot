@@ -1,19 +1,32 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLoginContext } from "../contexts/LoginContext";
 import { editProfile } from "../utils/editProfile";
+import { logout } from "../utils/logout";
+import { useChatContext } from "../contexts/ChatContext";
 
 const Settings = () => {
   const { user, setUser } = useLoginContext();
-  const [newEmail, setNewEmail] = useState(user.email);
+  const [newEmail, setNewEmail] = useState("");
+  const { setMessages } = useChatContext();
+
+  useEffect(() => {
+    if (user) {
+      setNewEmail(user.email);
+    }
+  }, [user]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     //UPDATE USER INFO
-    editProfile(user, newEmail).then((data) => {
-      //IF SUCCESS
-      if (data) {
-        //EMPTY USER STATE
-        setUser(null);
+    editProfile(user.email, newEmail).then((data) => {
+      //IF SUCCESS...
+      if (data.status === "success") {
+        //...LOGOUT USER
+        logout().then((data) => {
+          console.log(data); //*for testing
+          setUser(null);
+          setMessages([]);
+        });
       }
     });
   };

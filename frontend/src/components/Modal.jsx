@@ -23,7 +23,9 @@ const Modal = ({ setModal }) => {
   };
 
   const handleLogout = () => {
-    logout().then(() => {
+    //LOGOUT USER
+    logout().then((data) => {
+      console.log(data); //*for testing
       setUser(null);
       setMessages([]);
     });

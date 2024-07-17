@@ -6,6 +6,7 @@ import { useSubmitContext } from "../contexts/SubmitContext";
 import { useChatContext } from "../contexts/ChatContext";
 import { useLoginContext } from "../contexts/LoginContext";
 import { askChatGPT } from "../utils/askChatGPT";
+import { logout } from "../utils/logout";
 
 const MessageInput = () => {
   const [inputValue, setInputValue] = useState("");
@@ -35,8 +36,12 @@ const MessageInput = () => {
           setInputValue("");
           setLimitReached(true);
         } else {
-          //!LOGOUT USER
-          setUser(null);
+          //LOGOUT USER
+          logout().then((data) => {
+            console.log(data); //*for testing
+            setUser(null);
+            setMessages([]);
+          });
           throw new Error(data.error);
         }
       }

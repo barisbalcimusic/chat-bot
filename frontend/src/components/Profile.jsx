@@ -11,7 +11,9 @@ const Profile = () => {
   const [modal, setModal] = useState(false);
 
   const handleLogout = () => {
-    logout().then(() => {
+    //LOGOUT USER
+    logout().then((data) => {
+      console.log(data); //*for testing
       setUser(null);
       setMessages([]);
     });
