@@ -1,22 +1,29 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { register } from "../utils/register";
+import ReCAPTCHA from "react-google-recaptcha";
 
 const Register = () => {
   const [emailValue, setEmailValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
   const [warning, setWarning] = useState(false);
+  const recaptcha = useRef();
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    //CAPTCHA CHECK
+    // checkCaptcha();
     //CLEAR SPACES
     const email = emailValue.trim();
     const password = passwordValue.trim();
 
-    register({ email, password }).then((data) => {
+    //GET CAPTCHA VALUE
+    const captchaValue = recaptcha.current.getValue();
+
+    //SEND USER DATA AND CAPTCHA VALUE TO REGISTER FUNCTION
+    register({ email, password, captchaValue }).then((data) => {
       //IF REGISTRATION INVALID SET THE WARNING, ELSE DEACTIVATE
-      console.log(data);
       if (data.error) {
         console.log(data);
         setWarning(data.error);
@@ -26,6 +33,31 @@ const Register = () => {
       }
     });
   };
+
+  //CAPTCHA
+  // const checkCaptcha = async () => {
+  //   try {
+  //     const captchaValue = recaptcha.current.getValue();
+  //     console.log(captchaValue);
+  //     if (!captchaValue) {
+  //       return alert("Please verify the reCAPTCHA!");
+  //     } else {
+  //       const res = await fetch("http://localhost:3000/api/users/register", {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify({ captchaValue: captchaValue }),
+  //       });
+  //       const data = await res.json();
+  //       if (data.success) {
+  //         return alert("reCAPTCHA validation failed!");
+  //       }
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
   return (
     <form
@@ -50,14 +82,16 @@ const Register = () => {
       {warning && (
         <p className="text-red-500">
           {warning === "EmptyInput"
-            ? "EmailValue or PasswordValue must'n be empty"
+            ? "Email or password must'n be empty"
             : warning === "AlreadyRegistered"
-            ? "This emailValue adress is already registered"
+            ? "This email adress is already registered"
             : warning === "InvalidEmailValueFormat"
-            ? "The emailValue format is invalid"
+            ? "The email format is invalid"
             : warning === "InvalidLength"
-            ? "The passwordValue must be longer than 8 characters"
-            : ""}
+            ? "The password must be longer than 8 characters"
+            : warning === "InvalidCaptcha"
+            ? "Please verify the captcha to proceed."
+            : null}
         </p>
       )}
       <button
@@ -66,12 +100,17 @@ const Register = () => {
       >
         send
       </button>
+
       <div className="flex gap-2">
         <p>Already have an account?</p>
         <Link to={"/login"} className="text-blue-700 font-bold">
           Login
         </Link>
       </div>
+      <ReCAPTCHA
+        ref={recaptcha}
+        sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
+      />
     </form>
   );
 };

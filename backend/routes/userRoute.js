@@ -5,11 +5,12 @@ import { logout } from "../controllers/user/logout.js";
 import { deleteUser } from "../controllers/user/deleteUser.js";
 import { verifyToken } from "../middlewares/verifyToken.js";
 import { updateUser } from "../controllers/user/updateUser.js";
+import { captcha } from "../utils/captcha.js";
 
 export const userRoute = express.Router();
 
 //REGISTER
-userRoute.route("/register").post(register);
+userRoute.route("/register").post(captcha, register);
 //LOGIN
 userRoute.route("/login").post(login);
 //LOGOUT
