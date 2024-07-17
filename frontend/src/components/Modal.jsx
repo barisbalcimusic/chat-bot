@@ -12,18 +12,20 @@ const Modal = ({ setModal }) => {
   const [settingsOpened, setSettingsOpened] = useState();
   const { setMessages } = useChatContext();
 
+  //DELETE USER
   const handleDelete = () => {
-    deleteAccount(user.email).then((data) => console.log(data));
+    deleteAccount(user.userId).then((data) => console.log(data));
     setUser(null);
     setMessages([]);
   };
 
+  //CHANGE VISIBILTY OF SETTINGS MENU
   const handleSettings = () => {
     setSettingsOpened((value) => !value);
   };
 
+  //LOGOUT USER
   const handleLogout = () => {
-    //LOGOUT USER
     logout().then((data) => {
       console.log(data); //*for testing
       setUser(null);
