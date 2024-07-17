@@ -5,14 +5,13 @@ import { useState } from "react";
 import Modal from "./Modal";
 
 const Profile = () => {
-  const { user, setUser, setLoggedIn } = useLoginContext();
+  const { user, setUser } = useLoginContext();
   const { setMessages } = useChatContext();
   const [dropDown, setDropDown] = useState(false);
   const [modal, setModal] = useState(false);
 
   const handleLogout = () => {
     logout().then(() => {
-      setLoggedIn(false);
       setUser(null);
       setMessages([]);
     });

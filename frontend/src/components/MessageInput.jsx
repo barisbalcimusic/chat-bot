@@ -11,7 +11,7 @@ const MessageInput = () => {
   const [inputValue, setInputValue] = useState("");
   const { setSubmitted } = useSubmitContext();
   const { messages, setMessages } = useChatContext();
-  const { user, setLoggedIn } = useLoginContext();
+  const { user, setUser } = useLoginContext();
   const [typing, setTyping] = useState(false);
   const [limitReached, setLimitReached] = useState(false);
 
@@ -36,7 +36,7 @@ const MessageInput = () => {
           setLimitReached(true);
         } else {
           //!LOGOUT USER
-          // setLoggedIn(false);
+          setUser(null);
           throw new Error(data.error);
         }
       }

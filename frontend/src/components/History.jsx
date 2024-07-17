@@ -10,7 +10,7 @@ const History = () => {
   const historyRef = useRef();
 
   useEffect(() => {
-    //GET ALL MESSAGES & SET AS STATE
+    //GET ALL MESSAGES & SET AS STATE WHEN USER IS LOGGED IN
     const fetchMessages = async () => {
       try {
         const conversation = await getConversation(user.userId);

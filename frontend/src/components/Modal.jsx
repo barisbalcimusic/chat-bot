@@ -8,13 +8,12 @@ import { logout } from "../utils/logout";
 import { useChatContext } from "../contexts/ChatContext";
 
 const Modal = ({ setModal }) => {
-  const { setLoggedIn, user, setUser } = useLoginContext();
+  const { user, setUser } = useLoginContext();
   const [settingsOpened, setSettingsOpened] = useState();
   const { setMessages } = useChatContext();
 
   const handleDelete = () => {
     deleteAccount(user.email).then((data) => console.log(data));
-    setLoggedIn(false);
     setUser(null);
     setMessages([]);
   };
@@ -25,7 +24,6 @@ const Modal = ({ setModal }) => {
 
   const handleLogout = () => {
     logout().then(() => {
-      setLoggedIn(false);
       setUser(null);
       setMessages([]);
     });

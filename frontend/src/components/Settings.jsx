@@ -3,7 +3,7 @@ import { useLoginContext } from "../contexts/LoginContext";
 import { editProfile } from "../utils/editProfile";
 
 const Settings = () => {
-  const { user, setUser, setLoggedIn } = useLoginContext();
+  const { user, setUser } = useLoginContext();
   const [newEmail, setNewEmail] = useState(user.email);
 
   const handleSubmit = (e) => {
@@ -14,8 +14,6 @@ const Settings = () => {
       if (data) {
         //EMPTY USER STATE
         setUser(null);
-        //LOGOUT
-        setLoggedIn(false);
       }
     });
   };

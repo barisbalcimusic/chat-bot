@@ -4,16 +4,15 @@ import History from "../components/History";
 import { useLoginContext } from "../contexts/LoginContext";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import { logout } from "../utils/logout";
 
 const Chat = () => {
-  const { loggedIn } = useLoginContext();
+  const { user } = useLoginContext();
   const navigate = useNavigate();
 
   //REDIRECT IF USER TRIES A DIRECTLY ACCESS TO THE PATH OR LOGS OUT
   useEffect(() => {
-    if (!loggedIn) navigate("/login");
-  }, [loggedIn]);
+    if (!user) navigate("/login");
+  }, [user]);
 
   return (
     <div

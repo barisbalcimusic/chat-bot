@@ -7,7 +7,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [warning, setWarning] = useState(false);
   const [password, setPassword] = useState("");
-  const { setUser, setLoggedIn } = useLoginContext();
+  const { setUser } = useLoginContext();
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
@@ -18,7 +18,6 @@ const Login = () => {
         setWarning(data.error);
       } else {
         setWarning(false);
-        setLoggedIn(true);
         setUser(data);
         navigate("/chat");
       }
