@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const sender = "chatbotbybaris@gmail.com";
+const sender = process.env.EMAIL;
 const password = process.env.APP_PASSWORD;
 
 //EMAIL CONFIGURATION
