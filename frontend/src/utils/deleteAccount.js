@@ -1,10 +1,10 @@
-export const deleteAccount = async (userId) => {
+export const deleteAccount = async (userData) => {
   try {
     const res = await fetch(`http://localhost:3000/api/users/delete`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
       //SEND USER ID TO FIND USER
-      body: JSON.stringify({ userId }),
+      body: JSON.stringify(userData),
       credentials: "include",
     });
     const data = await res.json();

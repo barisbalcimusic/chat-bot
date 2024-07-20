@@ -12,8 +12,7 @@ const Profile = () => {
 
   const handleLogout = () => {
     //LOGOUT USER
-    logout().then((data) => {
-      console.log(data); //*for testing
+    logout().then(() => {
       setUser(null);
       setMessages([]);
     });

@@ -1,33 +1,32 @@
 import { useState } from "react";
 import { useLoginContext } from "../contexts/LoginContext";
 import { deleteAccount } from "../utils/deleteAccount";
-import Settings from "./Settings";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX } from "@fortawesome/free-solid-svg-icons";
 import { logout } from "../utils/logout";
 import { useChatContext } from "../contexts/ChatContext";
+import EditField from "./EditField";
+import DeleteField from "./DeleteField";
 
 const Modal = ({ setModal }) => {
   const { user, setUser } = useLoginContext();
-  const [settingsOpened, setSettingsOpened] = useState();
+  const [editFieldOpened, setEditFieldOpened] = useState(false);
+  const [deleteFieldOpened, setDeleteFieldOpened] = useState(false);
   const { setMessages } = useChatContext();
 
-  //DELETE USER
-  const handleDelete = () => {
-    deleteAccount(user.userId).then((data) => console.log(data));
-    setUser(null);
-    setMessages([]);
+  //CHANGE VISIBILTY OF EDIT FIELD
+  const handleEdit = () => {
+    setEditFieldOpened((value) => !value);
   };
 
-  //CHANGE VISIBILTY OF SETTINGS MENU
-  const handleSettings = () => {
-    setSettingsOpened((value) => !value);
+  //CHANGE VISIBILTY OF DELETE FIELD
+  const handleDelete = () => {
+    setDeleteFieldOpened((value) => !value);
   };
 
   //LOGOUT USER
   const handleLogout = () => {
-    logout().then((data) => {
-      console.log(data); //*for testing
+    logout().then(() => {
       setUser(null);
       setMessages([]);
     });
@@ -47,14 +46,14 @@ const Modal = ({ setModal }) => {
         </div>
         <ul className="w-full flex flex-col items-center gap-2">
           <li
-            onClick={handleSettings}
+            onClick={handleEdit}
             className="setting w-full max-w-[300px] text-center hover:cursor-pointer font-bold p-3"
           >
             Edit Profile
           </li>
-          {settingsOpened && (
+          {editFieldOpened && (
             <li className="w-full max-w-[300px]">
-              <Settings />
+              <EditField />
             </li>
           )}
           <li
@@ -63,6 +62,11 @@ const Modal = ({ setModal }) => {
           >
             Delete Account
           </li>
+          {deleteFieldOpened && (
+            <li className="w-full max-w-[300px]">
+              <DeleteField />
+            </li>
+          )}
           <li
             onClick={handleLogout}
             className="setting w-full max-w-[300px] text-center hover:cursor-pointer font-bold p-3"

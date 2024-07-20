@@ -4,7 +4,7 @@ import { editProfile } from "../utils/editProfile";
 import { logout } from "../utils/logout";
 import { useChatContext } from "../contexts/ChatContext";
 
-const Settings = () => {
+const EditField = () => {
   const { user, setUser } = useLoginContext();
   const [newEmail, setNewEmail] = useState("");
   const { setMessages } = useChatContext();
@@ -22,8 +22,7 @@ const Settings = () => {
       //IF SUCCESS...
       if (data.status === "success") {
         //...LOGOUT USER
-        logout().then((data) => {
-          console.log(data); //*for testing
+        logout().then(() => {
           setUser(null);
           setMessages([]);
         });
@@ -44,11 +43,11 @@ const Settings = () => {
           />
         </label>
         <button type="submit" className="button p-1">
-          save
+          update
         </button>
       </form>
     </div>
   );
 };
 
-export default Settings;
+export default EditField;
