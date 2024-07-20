@@ -17,11 +17,17 @@ const Modal = ({ setModal }) => {
   //CHANGE VISIBILTY OF EDIT FIELD
   const handleEdit = () => {
     setEditFieldOpened((value) => !value);
+    if (deleteFieldOpened) {
+      setDeleteFieldOpened((value) => !value);
+    }
   };
 
   //CHANGE VISIBILTY OF DELETE FIELD
   const handleDelete = () => {
     setDeleteFieldOpened((value) => !value);
+    if (editFieldOpened) {
+      setEditFieldOpened((value) => !value);
+    }
   };
 
   //LOGOUT USER

@@ -4,7 +4,7 @@ import { useChatContext } from "../contexts/ChatContext";
 import { deleteAccount } from "../utils/deleteAccount";
 
 const DeleteField = () => {
-  const [passwordValue, setPasswordValue] = useState(null);
+  const [passwordValue, setPasswordValue] = useState("");
   const { user, setUser } = useLoginContext();
   const { setMessages } = useChatContext();
 
@@ -21,15 +21,14 @@ const DeleteField = () => {
   return (
     <div className="settings w-full flex flex-col gap-2">
       <form onSubmit={handleSubmit} className="flex flex-col gap-2 p-4">
-        <label className="flex flex-col">
-          Password:
-          <input
-            value={passwordValue}
-            type="text"
-            onChange={(e) => setPasswordValue(e.target.value)}
-            className="p-2"
-          />
-        </label>
+        <p>Please enter your password to delete your account:</p>
+        <input
+          value={passwordValue}
+          type="text"
+          onChange={(e) => setPasswordValue(e.target.value)}
+          className="p-2"
+          placeholder="Password"
+        />
         <button type="submit" className="button p-1">
           delete
         </button>

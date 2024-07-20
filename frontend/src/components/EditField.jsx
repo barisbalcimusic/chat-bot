@@ -33,15 +33,14 @@ const EditField = () => {
   return (
     <div className="settings w-full flex flex-col gap-2">
       <form onSubmit={handleSubmit} className="flex flex-col gap-2 p-4">
-        <label className="flex flex-col">
-          Email:
-          <input
-            onChange={(e) => setNewEmail(e.target.value)}
-            type="text"
-            value={newEmail}
-            className="p-2"
-          />
-        </label>
+        <p>Please enter your new email adress to uptade:</p>
+        <input
+          onChange={(e) => setNewEmail(e.target.value)}
+          type="text"
+          value={newEmail}
+          className="p-2"
+          placeholder="Email adress"
+        />
         <button type="submit" className="button p-1">
           update
         </button>
