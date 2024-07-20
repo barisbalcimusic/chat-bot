@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { saveMessage } from "../utils/saveMessage";
@@ -11,10 +11,18 @@ import { logout } from "../utils/logout";
 const MessageInput = () => {
   const [inputValue, setInputValue] = useState("");
   const { setSubmitted } = useSubmitContext();
-  const { messages, setMessages } = useChatContext();
+  const { messages, setMessages, counter, setCounter } = useChatContext();
   const { user, setUser } = useLoginContext();
   const [typing, setTyping] = useState(false);
   const [limitReached, setLimitReached] = useState(false);
+
+  //CHECK THE MESSAGE COUNT
+  useEffect(() => {
+    if (counter >= 10) {
+      setLimitReached(true);
+      return;
+    }
+  }, [counter]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,6 +30,7 @@ const MessageInput = () => {
     if (inputValue.trim().length === 0) return;
 
     try {
+      //PREPARE QUESTION
       const post = {
         userId: user.userId,
         message: inputValue,
@@ -47,6 +56,8 @@ const MessageInput = () => {
           throw new Error(data.error);
         }
       }
+      //INCREATE COUNTER (MESSAGE COUNT)
+      setCounter((counter) => counter + 1);
       //CLEAR THE INPUT
       setInputValue("");
       //ADD QUESTION INTO MESSAGES STATE
@@ -57,20 +68,22 @@ const MessageInput = () => {
       //SEND CHATGPT THE QUESTION AND GET THE ANSWER
       const gptAnswer = await askChatGPT(inputValue);
 
+      //PREPARE ANSWER
       const answer = {
         userId: user.userId,
         message: gptAnswer,
         type: "answer",
       };
+
       //SAVE ANSWER INTO DB
       await saveMessage(answer);
 
+      //INCREATE COUNTER (MESSAGE COUNT)
+      setCounter((counter) => counter + 1);
       //ADD ANSWER INTO MESSAGES STATE
       setMessages((prevMessages) => [...prevMessages, answer]);
-
       //DEACTIVATE TYPING ANIMATION
       setTyping(false);
-
       //TRIGGER RE-RENDERING FOR HISTORY
       setSubmitted((value) => !value);
     } catch (e) {

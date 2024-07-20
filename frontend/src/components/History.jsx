@@ -6,7 +6,7 @@ import { useLoginContext } from "../contexts/LoginContext";
 
 const History = () => {
   const { user } = useLoginContext();
-  const { messages, setMessages } = useChatContext();
+  const { messages, setMessages, setCounter } = useChatContext();
   const historyRef = useRef();
 
   useEffect(() => {
@@ -16,6 +16,7 @@ const History = () => {
         const conversation = await getConversation(user.userId);
         //IF THERE IS A CONVERSATION
         if (conversation) {
+          setCounter(conversation.messages.length);
           //SET MESSAGES INTO STATE VARIABLE
           setMessages(conversation.messages);
           //IF THERE IS NO CONVERSATION

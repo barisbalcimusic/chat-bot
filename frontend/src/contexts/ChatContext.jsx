@@ -4,9 +4,12 @@ export const ChatContext = createContext();
 
 const ChatContextProvider = ({ children }) => {
   const [messages, setMessages] = useState([]);
+  const [counter, setCounter] = useState(0);
 
   return (
-    <ChatContext.Provider value={{ messages, setMessages }}>
+    <ChatContext.Provider
+      value={{ messages, setMessages, counter, setCounter }}
+    >
       {children}
     </ChatContext.Provider>
   );
