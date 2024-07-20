@@ -30,11 +30,13 @@ const MessageInput = () => {
 
       //SAVE QUESTION INTO DB
       const data = await saveMessage(post);
-      //CHECK FOR AUTHENTICATION ERROR
+
+      // CHECK FOR AUTHENTICATION ERROR
       if (data.error) {
         if (data.error === "MessageLimit") {
           setInputValue("");
           setLimitReached(true);
+          return;
         } else {
           //LOGOUT USER
           logout().then((data) => {
