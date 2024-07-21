@@ -3,6 +3,7 @@ import { User } from "../../models/User.js";
 import mongoose from "mongoose";
 import { transporterFunc, mailOptionsFunc } from "../../utils/mailConfig.js";
 import { sendMail } from "../../utils/sendMail.js";
+import crypto from "crypto";
 
 export const register = async (req, res, next) => {
   try {
@@ -39,8 +40,15 @@ export const register = async (req, res, next) => {
     //HASH THE PASSWORD
     const hashedPassword = await hash(password, 12);
 
+    //CREATE VERIFICATION TOKEN FOR EMAIL
+    const verificationToken = crypto.randomBytes(32).toString("hex");
+
     //SAVE USER DATA INTO DB
-    const user = await User.create({ email, password: hashedPassword });
+    const user = await User.create({
+      email,
+      password: hashedPassword,
+      verificationToken,
+    });
 
     //CHECK FOR ERRORS DURING REGISTRATION
     if (!user)
@@ -51,7 +59,7 @@ export const register = async (req, res, next) => {
 
     //SEND CONFIRMATION EMAIL ABOUT REGISTERATION
     const transporter = transporterFunc(email);
-    const mailOptions = mailOptionsFunc(email);
+    const mailOptions = mailOptionsFunc(email, verificationToken);
     sendMail(transporter, mailOptions);
 
     //RETURN SUCCESS MESSAGE

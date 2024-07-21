@@ -2,10 +2,13 @@ import { User } from "../../models/User.js";
 
 export const verifyUser = async (req, res, next) => {
   try {
-    const { id } = req.params;
+    const { token } = req.query;
 
-    //FIND USER VIA USER ID AND CHANGE VERIFY STATUS TO TRUE
-    const user = await User.findOneAndUpdate({ _id: id }, { verified: true });
+    //FIND USER VIA TOKEN AND CHANGE VERIFY STATUS TO TRUE
+    const user = await User.findOneAndUpdate(
+      { verificationToken: token },
+      { isVerified: true }
+    );
 
     res
       .status(200)

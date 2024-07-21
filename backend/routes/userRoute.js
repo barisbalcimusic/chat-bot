@@ -21,4 +21,4 @@ userRoute.route("/update").patch(verifyToken, updateUser);
 //DELETE USER
 userRoute.route("/delete").delete(verifyToken, deleteUser);
 //VERIFY USER
-userRoute.route("/verify/:id").patch(verifyUser);
+userRoute.route("/verify").get(verifyUser);
