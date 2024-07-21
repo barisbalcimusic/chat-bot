@@ -10,6 +10,8 @@ export const verifyToken = (req, res, next) => {
     //GET COOKIES FROM REQUEST OBJECT
     const accessToken = req.cookies["accessToken"];
 
+    console.log(accessToken);
+
     //CHECK IF ACCESSTOKEN IS EMPTY
     if (!accessToken) {
       return res
