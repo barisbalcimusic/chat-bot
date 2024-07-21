@@ -32,7 +32,7 @@ export const verifyUser = async (req, res, next) => {
     //RETURN A SUCCESS MESSAGE
     res
       .status(200)
-      .redirect("http://localhost:5173/login")
+      .redirect("https://chatbotbybaris.netlify.app/login")
       .json({ status: "Verified" });
   } catch (e) {
     next(e);

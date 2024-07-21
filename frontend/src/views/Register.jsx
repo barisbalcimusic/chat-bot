@@ -1,17 +1,20 @@
 import { useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { register } from "../utils/register";
 import ReCAPTCHA from "react-google-recaptcha";
+import BeatLoader from "react-spinners/BeatLoader";
 
 const Register = () => {
   const [emailValue, setEmailValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
   const [warning, setWarning] = useState(false);
   const [registerMessage, setRegisterMessage] = useState(null);
+  const [waiting, isWaiting] = useState(false);
   const recaptcha = useRef();
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    isWaiting(true);
     //CLEAR SPACES
     const email = emailValue.trim();
     const password = passwordValue.trim();
@@ -19,6 +22,7 @@ const Register = () => {
     const captchaValue = recaptcha.current.getValue();
     //SEND USER DATA AND CAPTCHA VALUE TO REGISTER FUNCTION
     register({ email, password, captchaValue }).then((data) => {
+      isWaiting(false);
       //IF REGISTRATION INVALID SET THE WARNING, ELSE DEACTIVATE
       if (data.error) {
         setWarning(data.error);
@@ -53,7 +57,7 @@ const Register = () => {
         onChange={(e) => setPasswordValue(e.target.value)}
       />
       {warning && (
-        <p className="text-red-500">
+        <p className="text-red-500 w-[300px] text-sm text-center">
           {warning === "EmptyInput"
             ? "Email or password must'n be empty"
             : warning === "AlreadyRegistered"
@@ -68,13 +72,16 @@ const Register = () => {
         </p>
       )}
       {registerMessage && (
-        <p className="text-green-600 text-center">{registerMessage}</p>
+        <p className="text-green-600 text-sm w-[300px] text-center">
+          {registerMessage}
+        </p>
       )}
       <button
+        disabled={waiting ? true : false}
         type="submit"
-        className="w-[300px] p-3 bg-[#9FC1BF] hover:bg-[#C5E7E5] border-gray-400 rounded-[10px] "
+        className="w-[300px] p-3 bg-[#9FC1BF] hover:bg-[#C5E7E5] border-gray-400 rounded-[10px] disabled:bg-gray-200"
       >
-        send
+        {waiting ? <BeatLoader loading={true} size={10} /> : "send"}
       </button>
 
       <div className="flex gap-2">
