@@ -15,7 +15,6 @@ export const login = async (req, res, next) => {
     if (!email || !password) {
       return res.status(400).json({
         error: "EmptyInput",
-        message: "Invalid login",
       });
     }
 
@@ -24,7 +23,6 @@ export const login = async (req, res, next) => {
     if (!user) {
       return res.status(401).json({
         error: "NotRegistered",
-        message: "Invalid login",
       });
     }
 
@@ -34,7 +32,6 @@ export const login = async (req, res, next) => {
     if (!hashedPassword) {
       return res.status(401).json({
         error: "HashError",
-        message: "Invalid login",
       });
     }
 
@@ -43,7 +40,19 @@ export const login = async (req, res, next) => {
     if (!isPasswordValid) {
       return res.status(401).json({
         error: "Unauthorized",
-        message: "Invalid login",
+      });
+    }
+
+    if (!isPasswordValid) {
+      return res.status(401).json({
+        error: "Unauthorized",
+      });
+    }
+
+    //CHECK IF USER VERIFIED THE EMAIL ADRESS
+    if (!user.isVerified) {
+      return res.status(401).json({
+        error: "EmailNotVerified",
       });
     }
 
@@ -56,7 +65,6 @@ export const login = async (req, res, next) => {
     if (!accessToken) {
       return res.status(500).json({
         error: "TokenCreationError",
-        message: "Error creating access token",
       });
     }
 

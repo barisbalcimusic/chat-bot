@@ -44,11 +44,13 @@ const Modal = ({ setModal }) => {
         <FontAwesomeIcon
           onClick={() => setModal(false)}
           icon={faX}
-          className="absolute top-3 right-3 text-3xl hover:text-red-600 hover:cursor-pointer"
+          className="absolute top-3 right-3 text-3xl hover:text-[#e17070] hover:cursor-pointer"
         />
         <div>
-          <p className="text-3xl">Hello,</p>
-          <p className="text-3xl font-bold">{user && user.email}</p>
+          <p className="text-xl lg:text-3xl">Hello,</p>
+          <p className="text-xl lg:text-3xl font-bold">
+            {user && user.email.split("@")[0]}
+          </p>
         </div>
         <ul className="w-full flex flex-col items-center gap-2">
           <li

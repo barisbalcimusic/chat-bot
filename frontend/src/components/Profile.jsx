@@ -27,7 +27,7 @@ const Profile = () => {
         className="profile-div w-full lg:w-auto flex flex-col justify-center items-center gap-2 absolute top-0 lg:top-[5px] right-0 lg:right-[20px] hover:cursor-pointer"
       >
         <p className="font-bold p-2 tracking-wider text-gray-700">
-          {user && user.email}
+          {user && user.email.split("@")[0]}
         </p>
         {dropDown && (
           <ul

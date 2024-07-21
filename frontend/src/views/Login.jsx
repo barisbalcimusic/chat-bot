@@ -19,6 +19,7 @@ const Login = () => {
       //IF LOGIN INVALID SET THE WARNING, ELSE DEACTIVATE
       if (data.error) {
         setWarning(data.error);
+        console.log(warning);
       } else {
         setWarning(false);
         setUser(data);
@@ -62,9 +63,13 @@ const Login = () => {
         <p className="text-red-500">
           {warning === "EmptyInput"
             ? "Email or Password must'n be empty"
-            : warning === "NotRegistered" || "Unauthorized"
+            : warning === "NotRegistered"
             ? "Invalid login data"
-            : ""}
+            : warning === "Unauthorized"
+            ? "Invalid login data"
+            : warning === "EmailNotVerified"
+            ? "The email address hasn't been verified yet. Please verify it via the link we sent to you in order to log in."
+            : null}
         </p>
       )}
       <button

@@ -53,8 +53,7 @@ const MessageInput = () => {
           return;
         } else {
           //LOGOUT USER
-          logout().then((data) => {
-            console.log(data); //*for testing
+          logout().then(() => {
             setUser(null);
             setMessages([]);
           });

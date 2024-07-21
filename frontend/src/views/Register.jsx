@@ -7,8 +7,8 @@ const Register = () => {
   const [emailValue, setEmailValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
   const [warning, setWarning] = useState(false);
+  const [registerMessage, setRegisterMessage] = useState(null);
   const recaptcha = useRef();
-  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -22,9 +22,12 @@ const Register = () => {
       //IF REGISTRATION INVALID SET THE WARNING, ELSE DEACTIVATE
       if (data.error) {
         setWarning(data.error);
+        setRegisterMessage(null);
       } else {
         setWarning(false);
-        navigate("/login");
+        setRegisterMessage(data.message);
+        setEmailValue("");
+        setPasswordValue("");
       }
     });
   };
@@ -63,6 +66,9 @@ const Register = () => {
             ? "Please verify the captcha to proceed."
             : null}
         </p>
+      )}
+      {registerMessage && (
+        <p className="text-green-600 text-center">{registerMessage}</p>
       )}
       <button
         type="submit"

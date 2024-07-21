@@ -63,7 +63,10 @@ export const register = async (req, res, next) => {
     sendMail(transporter, mailOptions);
 
     //RETURN SUCCESS MESSAGE
-    res.status(201).json({ message: "Registration successful" });
+    res.status(201).json({
+      message:
+        "Registration successful! Please verify your email via the link we have sent.",
+    });
   } catch (e) {
     //GET THE TYPE OF VALIDATION ERROR
     let errors = {};
