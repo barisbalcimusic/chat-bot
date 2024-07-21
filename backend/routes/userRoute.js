@@ -6,6 +6,7 @@ import { deleteUser } from "../controllers/user/deleteUser.js";
 import { verifyToken } from "../middlewares/verifyToken.js";
 import { updateUser } from "../controllers/user/updateUser.js";
 import { captcha } from "../utils/captcha.js";
+import { verifyUser } from "../controllers/user/verifyUser.js";
 
 export const userRoute = express.Router();
 
@@ -19,3 +20,5 @@ userRoute.route("/logout").post(logout);
 userRoute.route("/update").patch(verifyToken, updateUser);
 //DELETE USER
 userRoute.route("/delete").delete(verifyToken, deleteUser);
+//VERIFY USER
+userRoute.route("/verify/:id").patch(verifyUser);
