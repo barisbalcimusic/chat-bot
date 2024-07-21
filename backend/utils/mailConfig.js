@@ -7,7 +7,7 @@ const sender = process.env.EMAIL;
 const password = process.env.APP_PASSWORD;
 
 //EMAIL CONFIGURATION
-export const transporterFunc = (receiver) => {
+export const transporterFunc = () => {
   const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 465,

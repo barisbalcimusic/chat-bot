@@ -58,7 +58,7 @@ export const register = async (req, res, next) => {
       });
 
     //SEND CONFIRMATION EMAIL ABOUT REGISTERATION
-    const transporter = transporterFunc(email);
+    const transporter = transporterFunc();
     const mailOptions = mailOptionsFunc(email, verificationToken);
     sendMail(transporter, mailOptions);
 
