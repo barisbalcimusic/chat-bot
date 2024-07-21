@@ -61,7 +61,7 @@ const History = () => {
         if (message.type === "question") {
           return (
             //...SHOW QUESTION WITHOUT TYPING ANIMATION
-            <div key={index} className={`question ${messageStyle}`}>
+            <div key={index} className={`question-div ${messageStyle}`}>
               <div className="w-[40px] h-[40px] lg:w-[60px] lg:h-[60px] bg-red-300 flex justify-center items-center rounded-full p-2 overflow-hidden shadow-md shadow-gray-500">
                 <p className="font-bold text-xl lg:text-3xl">
                   {user.email[0].toUpperCase()}
@@ -78,7 +78,7 @@ const History = () => {
           if (typeAnimation && array.length - 1 === index) {
             return (
               //...SHOW ANSWER WITH TYPING ANIMATION
-              <div key={index} className={`answer ${messageStyle}`}>
+              <div key={index} className={`answer-div ${messageStyle}`}>
                 <div className="w-[40px] h-[40px] lg:w-[60px] lg:h-[60px] bg-white  rounded-full p-2 overflow-hidden shadow-md shadow-gray-500">
                   <img
                     src={robot}
@@ -91,6 +91,7 @@ const History = () => {
                     speed={40}
                     repeat={0}
                     cursor={false}
+                    className="answer"
                   />
                 </p>
               </div>
@@ -99,14 +100,14 @@ const History = () => {
           } else {
             return (
               //...SHOW ANSWER WITHOUT TYPING ANIMATION
-              <div key={index} className={`answer ${messageStyle}`}>
+              <div key={index} className={`answer-div ${messageStyle}`}>
                 <div className="w-[40px] h-[40px] lg:w-[60px] lg:h-[60px] bg-white  rounded-full p-2 overflow-hidden shadow-md shadow-gray-500">
                   <img
                     src={robot}
                     className="w-[50px] h-[50px] lg:w-[85px] lg:h-[85px] object-cover"
                   />
                 </div>
-                <p>{message.message}</p>
+                <p className="answer">{message.message}</p>
               </div>
             );
           }

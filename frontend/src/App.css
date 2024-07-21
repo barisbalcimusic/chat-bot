@@ -26,11 +26,13 @@ html {
 .chat-container {
   background-color: var(--bg);
 }
-.question {
+.question-div {
   background-color: var(--question);
 }
-.answer {
+.answer-div {
   background-color: var(--primaryHover);
+}
+.answer {
   font-family: "Courier New", Courier, monospace;
 }
 .profile-div {
