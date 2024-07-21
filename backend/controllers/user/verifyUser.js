@@ -32,7 +32,8 @@ export const verifyUser = async (req, res, next) => {
     //RETURN A SUCCESS MESSAGE
     res
       .status(200)
-      .json({ status: "Verified", message: "User successfully verified." });
+      .redirect("http://localhost:5173/login")
+      .json({ status: "Verified" });
   } catch (e) {
     next(e);
   }
