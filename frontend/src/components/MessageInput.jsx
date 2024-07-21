@@ -101,23 +101,25 @@ const MessageInput = () => {
       className="message-bar w-full h-[100px] flex flex-col justify-center items-center absolute bottom-0 left-0"
     >
       {typing && <p className="absolute text-xl text-white">typing...</p>}
-      <form className="w-full flex justify-center mt-4" onSubmit={handleSubmit}>
-        <input
-          maxLength={40}
-          value={inputValue}
-          type="text"
-          disabled={typing || limitReached ? true : false}
-          placeholder={typing || limitReached ? "" : "your message"}
-          className="message-input w-[80%] max-w-[500px] h-[60px] placeholder:italic placeholder:indent-4 indent-4 focus:outline-none disabled:bg-red-700"
-          onChange={(e) => setInputValue(e.target.value)}
-        />
-        <button
-          type="submit"
-          className="send-message p-2"
-          disabled={typing || limitReached ? true : false}
-        >
-          <FontAwesomeIcon icon={faPaperPlane} />
-        </button>
+      <form className="w-full flex mt-4 justify-center" onSubmit={handleSubmit}>
+        <div className="w-[80%] max-w-[500px] h-[60px] flex justify-end items-center relative">
+          <input
+            maxLength={40}
+            value={inputValue}
+            type="text"
+            disabled={typing || limitReached ? true : false}
+            placeholder={typing || limitReached ? "" : "your message"}
+            className="message-input w-full h-full placeholder:italic placeholder:indent-4 indent-4 focus:outline-none disabled:bg-red-700 rounded-[10px]"
+            onChange={(e) => setInputValue(e.target.value)}
+          />
+          <button
+            type="submit"
+            className="h-full send-message p-2 absolute rounded-tr-[10px] rounded-br-[10px] disabled:bg-gray-300"
+            disabled={typing || limitReached ? true : false}
+          >
+            <FontAwesomeIcon icon={faPaperPlane} />
+          </button>
+        </div>
       </form>
       <small className="text-white font-bold space-wider tracking-wider  ">
         {limitReached
