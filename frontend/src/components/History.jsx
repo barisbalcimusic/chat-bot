@@ -13,6 +13,7 @@ const History = () => {
 
   useEffect(() => {
     setTypeAnimation(false);
+    setCounter(0);
 
     //GET ALL MESSAGES & SET AS STATE WHEN USER IS LOGGED IN
     const fetchMessages = async () => {
@@ -25,7 +26,6 @@ const History = () => {
           setMessages(conversation.messages);
           //IF THERE IS NO CONVERSATION
         } else {
-          setCounter(0);
           //CREATE A NEW CONVERSATION
           await createConversation(user.userId);
         }
