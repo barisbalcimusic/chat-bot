@@ -7,10 +7,13 @@ import { TypeAnimation } from "react-type-animation";
 
 const History = () => {
   const { user } = useLoginContext();
-  const { messages, setMessages, setCounter, typeAnimation } = useChatContext();
+  const { messages, setMessages, setCounter, typeAnimation, setTypeAnimation } =
+    useChatContext();
   const historyRef = useRef();
 
   useEffect(() => {
+    setTypeAnimation(false);
+
     //GET ALL MESSAGES & SET AS STATE WHEN USER IS LOGGED IN
     const fetchMessages = async () => {
       try {
@@ -22,6 +25,7 @@ const History = () => {
           setMessages(conversation.messages);
           //IF THERE IS NO CONVERSATION
         } else {
+          setCounter(0);
           //CREATE A NEW CONVERSATION
           await createConversation(user.userId);
         }
