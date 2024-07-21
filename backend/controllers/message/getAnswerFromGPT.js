@@ -20,7 +20,9 @@ export const getAnswerFromGPT = async (req, res, next) => {
 
     //GET THE ANSWER OF CHATGPT
     let answer;
-    if (completion.choices[0].message.content.slice(-1)[0] === ".") {
+    const lastCharArr = completion.choices[0].message.content.slice(-1)[0];
+    const validEndings = [".", "!", "?"];
+    if (validEndings.includes(lastCharArr)) {
       answer = completion.choices[0].message.content;
     } else {
       answer = completion.choices[0].message.content + " ...";
