@@ -3,10 +3,11 @@ import { useChatContext } from "../contexts/ChatContext";
 import { getConversation } from "../utils/getConversation";
 import { createConversation } from "../utils/createConversation";
 import { useLoginContext } from "../contexts/LoginContext";
+import { TypeAnimation } from "react-type-animation";
 
 const History = () => {
   const { user } = useLoginContext();
-  const { messages, setMessages, setCounter } = useChatContext();
+  const { messages, setMessages, setCounter, typeAnimation } = useChatContext();
   const historyRef = useRef();
 
   useEffect(() => {
@@ -46,19 +47,47 @@ const History = () => {
       id="history-div"
       className="flex flex-col items-center gap-2 lg:gap-5 p-3 pt-12 overflow-y-auto mb-[100px]"
     >
-      {messages.map((message, index) => (
-        <p
-          key={index}
-          className={
-            (message.type === "answer" &&
-              "answer w-full max-w-[800px] p-4 lg:p-5 rounded-[10px]") ||
-            (message.type === "question" &&
-              "question w-full max-w-[800px] p-4 lg:p-5 rounded-[10px]")
+      {messages.map((message, index, array) => {
+        //COMMON STYLES
+        const messageStyle = "w-[90%] max-w-[800px] p-4 lg:p-5 rounded-[10px]";
+
+        //IF MESAGE TYPE IS QUESTION...
+        if (message.type === "question") {
+          return (
+            //...SHOW QUESTION WITHOUT TYPING ANIMATION
+            <p key={index} className={`question ${messageStyle}`}>
+              {message.message}
+            </p>
+          );
+        }
+
+        //IF MESAGE TYPE IS ANSWER...
+        if (message.type === "answer") {
+          //...AND TYPE ANIMATION STATE IS TRUE AND IT IS THE LAST ANSWER
+          if (typeAnimation && array.length - 1 === index) {
+            return (
+              //...SHOW ANSWER WITH TYPING ANIMATION
+              <TypeAnimation
+                key={index}
+                className={`answer ${messageStyle}`}
+                sequence={message.message}
+                speed={40}
+                repeat={0}
+                cursor={false}
+              />
+            );
+            //...OTHERWISE...
+          } else {
+            return (
+              //...SHOW ANSWER WITHOUT TYPING ANIMATION
+              <p key={index} className={`answer ${messageStyle}`}>
+                {message.message}
+              </p>
+            );
           }
-        >
-          {message.message}
-        </p>
-      ))}
+        }
+        return null;
+      })}
     </div>
   );
 };

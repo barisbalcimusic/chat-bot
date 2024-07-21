@@ -11,7 +11,8 @@ import { logout } from "../utils/logout";
 const MessageInput = () => {
   const [inputValue, setInputValue] = useState("");
   const { setSubmitted } = useSubmitContext();
-  const { messages, setMessages, counter, setCounter } = useChatContext();
+  const { messages, setMessages, counter, setCounter, setTypeAnimation } =
+    useChatContext();
   const { user, setUser } = useLoginContext();
   const [typing, setTyping] = useState(false);
   const [limitReached, setLimitReached] = useState(false);
@@ -28,6 +29,9 @@ const MessageInput = () => {
     e.preventDefault();
     //INPUT CHECK: IGNORE EMPTY MESSAGES
     if (inputValue.trim().length === 0) return;
+
+    //ACTIVATE TYPE ANIMATION
+    setTypeAnimation(true);
 
     try {
       //PREPARE QUESTION
@@ -104,7 +108,7 @@ const MessageInput = () => {
           type="text"
           disabled={typing || limitReached ? true : false}
           placeholder={typing || limitReached ? "" : "your message"}
-          className="message-input w-[80%] max-w-[500px] h-[60px] placeholder:italic placeholder:indent-4 indent-4 focus:outline-none"
+          className="message-input w-[80%] max-w-[500px] h-[60px] placeholder:italic placeholder:indent-4 indent-4 focus:outline-none disabled:bg-red-700"
           onChange={(e) => setInputValue(e.target.value)}
         />
         <button
@@ -115,7 +119,7 @@ const MessageInput = () => {
           <FontAwesomeIcon icon={faPaperPlane} />
         </button>
       </form>
-      <small className="text-white">
+      <small className="text-white font-bold space-wider tracking-wider  ">
         {limitReached
           ? "You have reached your message limit"
           : `${40 - inputValue.length} characters remaining`}

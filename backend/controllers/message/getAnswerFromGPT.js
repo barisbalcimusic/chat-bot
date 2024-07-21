@@ -19,7 +19,12 @@ export const getAnswerFromGPT = async (req, res, next) => {
     });
 
     //GET THE ANSWER OF CHATGPT
-    const answer = completion.choices[0].message.content + " ( ... )";
+    let answer;
+    if (completion.choices[0].message.content.slice(-1)[0] === ".") {
+      answer = completion.choices[0].message.content;
+    } else {
+      answer = completion.choices[0].message.content + " ...";
+    }
 
     //RETURN THE ANSWER
     res.status(200).json({ answer });

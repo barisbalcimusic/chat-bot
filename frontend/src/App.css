@@ -31,6 +31,7 @@ html {
 }
 .answer {
   background-color: var(--primaryHover);
+  font-family: "Courier New", Courier, monospace;
 }
 .profile-div {
   background-color: rgba(154, 184, 182, 0.8);
