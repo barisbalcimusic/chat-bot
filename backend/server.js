@@ -12,23 +12,18 @@ const app = express();
 
 dotenv.config();
 
+//NECCESSARY TO READ COOKIES FROM REQUEST OBJECT
+app.use(cookieParser());
+
 app.use(express.json());
 
 //CORS ip settings
-const allowedOrigins = [
-  "http://localhost:5173",
-  "http://localhost:5174",
-  "https://chatbotbybaris.netlify.app",
-];
 app.use(
   cors({
-    origin: allowedOrigins,
+    origin: "https://chatbotbybaris.netlify.app",
     credentials: true,
   })
 );
-
-//NECCESSARY TO READ COOKIES FROM REQUEST OBJECT
-app.use(cookieParser());
 
 //CONNECT TO DB
 const db_url = process.env.MONGO_URI;
