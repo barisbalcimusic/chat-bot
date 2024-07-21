@@ -131,11 +131,18 @@ const MessageInput = () => {
           </button>
         </div>
       </form>
-      <small className="text-white font-bold space-wider tracking-wider  ">
-        {limitReached
-          ? "You have reached your message limit"
-          : `${40 - inputValue.length} characters remaining`}
-      </small>
+      {limitReached ? (
+        <small className="text-white space-wider tracking-wider">
+          You have reached your message limit
+        </small>
+      ) : (
+        <small className="text-white space-wider tracking-wider">
+          <span className="text-yellow-200 font-bold">
+            {40 - inputValue.length}
+          </span>{" "}
+          characters remaining
+        </small>
+      )}
     </div>
   );
 };

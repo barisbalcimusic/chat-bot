@@ -55,7 +55,7 @@ const History = () => {
       {messages.map((message, index, array) => {
         //COMMON STYLES
         const messageStyle =
-          "w-[90%] max-w-[800px] px-2 py-4 lg:px-3 lg:py-5 flex items-center gap-2 lg:gap-3 rounded-[10px] shadow-lg shadow-gray-700";
+          "w-[90%] max-w-[800px] px-2 py-4 lg:px-3 lg:py-5 flex items-center gap-3 lg:gap-3 rounded-[10px] shadow-lg shadow-gray-700";
 
         //IF MESAGE TYPE IS QUESTION...
         if (message.type === "question") {
