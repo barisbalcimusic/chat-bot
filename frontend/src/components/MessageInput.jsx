@@ -122,7 +122,7 @@ const MessageInput = () => {
             type="text"
             disabled={typing || limitReached ? true : false}
             placeholder={typing || limitReached ? "" : "your message"}
-            className="message-input w-full h-full placeholder:italic placeholder:indent-6 indent-6 focus:outline-none disabled:bg-red-700 rounded-full"
+            className="message-input w-full h-full placeholder:italic placeholder:indent-6 indent-6 disabled:bg-red-700 rounded-full"
             onChange={(e) => setInputValue(e.target.value)}
           />
           <button
