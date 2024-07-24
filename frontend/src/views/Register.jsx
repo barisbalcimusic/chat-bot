@@ -3,12 +3,15 @@ import { Link } from "react-router-dom";
 import { register } from "../utils/register";
 import ReCAPTCHA from "react-google-recaptcha";
 import BeatLoader from "react-spinners/BeatLoader";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 const Register = () => {
   const [emailValue, setEmailValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
   const [warning, setWarning] = useState(false);
   const [registerMessage, setRegisterMessage] = useState(null);
+  const [passwordHidden, setPasswordHidden] = useState(true);
   const [waiting, isWaiting] = useState(false);
   const recaptcha = useRef();
 
@@ -49,13 +52,25 @@ const Register = () => {
         placeholder="Email adress"
         onChange={(e) => setEmailValue(e.target.value)}
       />
-      <input
-        value={passwordValue}
-        type="text"
-        className="w-[300px] p-3 placeholder:italic border border-gray-400 rounded-[10px] "
-        placeholder="Password"
-        onChange={(e) => setPasswordValue(e.target.value)}
-      />
+      <div className="flex justify-end items-center relative">
+        <input
+          value={passwordValue}
+          type={passwordHidden ? "password" : "text"}
+          className="w-[300px] p-3 placeholder:italic border border-gray-400 rounded-[10px] "
+          placeholder="Password"
+          onChange={(e) => setPasswordValue(e.target.value)}
+        />
+        <div
+          onClick={() => setPasswordHidden((value) => !value)}
+          className="absolute right-3 hover:cursor-pointer hover:text-gray-400"
+        >
+          {passwordHidden ? (
+            <FontAwesomeIcon icon={faEye} />
+          ) : (
+            <FontAwesomeIcon icon={faEyeSlash} />
+          )}
+        </div>
+      </div>
       {warning && (
         <p className="text-red-500 w-[300px] text-sm text-center">
           {warning === "EmptyInput"
