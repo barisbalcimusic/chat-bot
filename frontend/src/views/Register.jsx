@@ -18,8 +18,9 @@ const Register = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     isWaiting(true);
-    //CLEAR SPACES
-    const email = emailValue.trim();
+    //TRIM & LOWERCASE EMAIL
+    const email = emailValue.trim().toLowerCase();
+    //TRIM PASSWORD
     const password = passwordValue.trim();
     //GET CAPTCHA VALUE
     const captchaValue = recaptcha.current.getValue();

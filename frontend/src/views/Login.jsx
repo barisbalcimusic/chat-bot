@@ -7,9 +7,9 @@ import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import BeatLoader from "react-spinners/BeatLoader";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
+  const [emailValue, setEmailValue] = useState("");
+  const [passwordValue, setPasswordValue] = useState("");
   const [warning, setWarning] = useState(false);
-  const [password, setPassword] = useState("");
   const [passwordHidden, setPasswordHidden] = useState(true);
   const [waiting, isWaiting] = useState(false);
   const { setUser } = useLoginContext();
@@ -18,7 +18,9 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     isWaiting(true);
-    login({ email, password }).then((data) => {
+    //TRIM & LOWERCASE EMAIL
+    const email = emailValue.trim().toLowerCase();
+    login({ email, password: passwordValue }).then((data) => {
       isWaiting(false);
       //IF LOGIN INVALID SET THE WARNING, ELSE DEACTIVATE
       if (data.error) {
@@ -37,19 +39,19 @@ const Login = () => {
     >
       <h1 className="text-4xl font-bold mb-[30px]">Login</h1>
       <input
-        value={email}
+        value={emailValue}
         type="text"
         className="w-[300px] p-3 placeholder:italic border border-gray-400 rounded-[10px] "
         placeholder="Email adress"
-        onChange={(e) => setEmail(e.target.value)}
+        onChange={(e) => setEmailValue(e.target.value)}
       />
       <div className="flex justify-end items-center relative">
         <input
-          value={password}
+          value={passwordValue}
           type={passwordHidden ? "password" : "text"}
           className="w-[300px] p-3 placeholder:italic border border-gray-400 rounded-[10px] "
           placeholder="Password"
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e) => setPasswordValue(e.target.value)}
         />
         <div
           onClick={() => setPasswordHidden((value) => !value)}
