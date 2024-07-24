@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { saveMessage } from "../utils/saveMessage";
@@ -17,6 +17,7 @@ const MessageInput = () => {
   const { user, setUser } = useLoginContext();
   const [typing, setTyping] = useState(false);
   const [limitReached, setLimitReached] = useState(false);
+  const inputRef = useRef();
 
   //CHECK THE MESSAGE COUNT
   useEffect(() => {
@@ -24,6 +25,8 @@ const MessageInput = () => {
       setLimitReached(true);
       return;
     }
+    //SET AUTO FOCUS ON INPUT
+    inputRef.current.focus();
   }, [counter]);
 
   const handleSubmit = async (e) => {
@@ -113,6 +116,7 @@ const MessageInput = () => {
       <form className="w-full flex mt-4 justify-center" onSubmit={handleSubmit}>
         <div className="w-[80%] max-w-[500px] h-[60px] flex justify-end items-center relative">
           <input
+            ref={inputRef}
             maxLength={40}
             value={inputValue}
             type="text"
