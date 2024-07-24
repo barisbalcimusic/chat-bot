@@ -6,12 +6,13 @@
   --secondary: rgb(29, 78, 216);
   --secondaryHover: rgb(118, 146, 224);
   --hover: rgb(229, 243, 232);
-  --question: rgb(235, 232, 232);
+  --question: rgb(238, 238, 238);
   --bg: #65777f;
   --inputDiv: #d9d9d9;
   --modal: rgba(41, 41, 41, 0.9);
   --scrollbar: #7ab39e;
   --messagebar: #484646;
+  --messagebar-grad: #777777;
 }
 
 * {
@@ -77,12 +78,15 @@ html {
 }
 .message-bar {
   /* background-color: var(--messagebar); */
-  background: rgb(72, 70, 70);
   background: linear-gradient(
     0deg,
-    rgba(72, 70, 70, 1) 0%,
-    rgb(131, 117, 105) 100%
+    var(--messagebar) 0%,
+    var(--messagebar-grad) 100%
   );
+}
+.profil-pic {
+  background-color: var(--messagebar-grad);
+  color: var(--question);
 }
 
 /* SCROLLBAR */

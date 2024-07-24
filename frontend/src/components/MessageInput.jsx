@@ -114,7 +114,7 @@ const MessageInput = () => {
         </p>
       )}
       <form className="w-full flex mt-4 justify-center" onSubmit={handleSubmit}>
-        <div className="w-[80%] max-w-[500px] h-[60px] flex justify-end items-center relative">
+        <div className="w-[80%] max-w-[500px] h-[55px] flex justify-end items-center relative">
           <input
             ref={inputRef}
             maxLength={40}
@@ -122,12 +122,12 @@ const MessageInput = () => {
             type="text"
             disabled={typing || limitReached ? true : false}
             placeholder={typing || limitReached ? "" : "your message"}
-            className="message-input w-full h-full placeholder:italic placeholder:indent-4 indent-4 focus:outline-none disabled:bg-red-700 rounded-[10px]"
+            className="message-input w-full h-full placeholder:italic placeholder:indent-6 indent-6 focus:outline-none disabled:bg-red-700 rounded-full"
             onChange={(e) => setInputValue(e.target.value)}
           />
           <button
             type="submit"
-            className="h-full send-message p-2 absolute rounded-tr-[10px] rounded-br-[10px] disabled:bg-gray-300"
+            className="w-[40px] h-[40px] send-message p-2 absolute mr-[8px] rounded-full disabled:bg-gray-300"
             disabled={typing || limitReached ? true : false}
           >
             <FontAwesomeIcon icon={faPaperPlane} />
