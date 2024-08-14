@@ -2,7 +2,7 @@ import { createContext, useContext, useState } from "react";
 
 export const SubmitContext = createContext();
 
-const SubmitContextProvider = ({ children }) => {
+const SubmitProvider = ({ children }) => {
   const [submitted, setSubmitted] = useState(false);
 
   return (
@@ -12,7 +12,7 @@ const SubmitContextProvider = ({ children }) => {
   );
 };
 
-export default SubmitContextProvider;
+export default SubmitProvider;
 
 export const useSubmitContext = () => {
   return useContext(SubmitContext);

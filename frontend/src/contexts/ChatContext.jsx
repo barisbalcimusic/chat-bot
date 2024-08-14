@@ -2,7 +2,7 @@ import { createContext, useContext, useState } from "react";
 
 export const ChatContext = createContext();
 
-const ChatContextProvider = ({ children }) => {
+const ChatProvider = ({ children }) => {
   const [messages, setMessages] = useState([]);
   const [counter, setCounter] = useState(0);
   const [typeAnimation, setTypeAnimation] = useState(false);
@@ -23,7 +23,7 @@ const ChatContextProvider = ({ children }) => {
   );
 };
 
-export default ChatContextProvider;
+export default ChatProvider;
 
 export const useChatContext = () => {
   return useContext(ChatContext);

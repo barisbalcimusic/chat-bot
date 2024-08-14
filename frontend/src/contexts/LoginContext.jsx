@@ -2,7 +2,7 @@ import { createContext, useContext, useState } from "react";
 
 export const LoginContext = createContext();
 
-const LoginContextProvider = ({ children }) => {
+const LoginProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
   return (
@@ -12,7 +12,7 @@ const LoginContextProvider = ({ children }) => {
   );
 };
 
-export default LoginContextProvider;
+export default LoginProvider;
 
 export const useLoginContext = () => {
   return useContext(LoginContext);

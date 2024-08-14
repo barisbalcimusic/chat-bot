@@ -1,16 +1,19 @@
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import "./index.css";
-import ChatContextProvider from "./contexts/ChatContext";
-import LoginContextProvider from "./contexts/LoginContext";
-import SubmitContextProvider from "./contexts/SubmitContext";
+import ChatProvider from "./contexts/ChatContext";
+import LoginProvider from "./contexts/LoginContext";
+import SubmitProvider from "./contexts/SubmitContext";
+import ResponsivityProvider from "./contexts/ResponsivityContext.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <LoginContextProvider>
-    <ChatContextProvider>
-      <SubmitContextProvider>
-        <App />
-      </SubmitContextProvider>
-    </ChatContextProvider>
-  </LoginContextProvider>
+  <ResponsivityProvider>
+    <LoginProvider>
+      <ChatProvider>
+        <SubmitProvider>
+          <App />
+        </SubmitProvider>
+      </ChatProvider>
+    </LoginProvider>
+  </ResponsivityProvider>
 );
