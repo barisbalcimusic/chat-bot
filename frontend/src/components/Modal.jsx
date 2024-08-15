@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useLoginContext } from "../contexts/LoginContext";
-import { deleteAccount } from "../utils/deleteAccount";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX } from "@fortawesome/free-solid-svg-icons";
 import { logout } from "../utils/logout";
@@ -39,7 +38,7 @@ const Modal = ({ setModal }) => {
   };
 
   return (
-    <div className="modal w-screen h-screen flex flex-col justify-center items-center absolute z-10 left-0 top-0">
+    <div className="modal w-full h-full flex flex-col justify-center items-center absolute z-10 left-0 top-0">
       <div className="settings-div w-[90%] max-w-[600px] flex flex-col gap-5 justify-center items-center p-10 relative rounded-[10px]">
         <FontAwesomeIcon
           onClick={() => setModal(false)}

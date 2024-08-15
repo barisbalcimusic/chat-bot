@@ -23,6 +23,7 @@ body {
 }
 
 #root {
+  /* important for proper view in mobile browsers */
   width: 100svw;
   height: 100svh;
 }
