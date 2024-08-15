@@ -1,13 +1,9 @@
 import { Link } from "react-router-dom";
-import { useResponsivityContext } from "../contexts/ResponsivityContext";
 
 const Home = () => {
-  const { height } = useResponsivityContext();
-
   return (
     <div
-      style={{ height: `${height}px` }}
-      className={`w-screen flex flex-col gap-10 bg-black text-white justify-center items-center`}
+      className={`w-full h-full flex flex-col gap-10 bg-black text-white justify-center items-center`}
     >
       <div className="flex flex-col justify-center items-center">
         <h2 className="text-xl font-bold text-gray-500">ChatBot by Baris</h2>

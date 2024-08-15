@@ -17,7 +17,7 @@ const Chat = () => {
   return (
     <div
       id="container"
-      className="chat-container w-screen h-screen flex flex-col relative"
+      className="chat-container w-full h-full flex flex-col relative"
     >
       <Profile />
       <History />
