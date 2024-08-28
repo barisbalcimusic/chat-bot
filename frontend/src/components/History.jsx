@@ -50,8 +50,7 @@ const History = () => {
     <div
       ref={historyRef}
       id="history-div"
-      className="flex flex-col items-center gap-2 lg:gap-5 p-3 pt-12 overflow-y-auto mb-[100px]"
-    >
+      className="flex flex-col items-center gap-2 lg:gap-5 p-3 pt-12 overflow-y-auto mb-[100px]">
       {messages.map((message, index, array) => {
         //COMMON STYLES
         const messageStyle =
