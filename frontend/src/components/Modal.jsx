@@ -13,7 +13,7 @@ const Modal = ({ setModal }) => {
   const [deleteFieldOpened, setDeleteFieldOpened] = useState(false);
   const { setMessages } = useChatContext();
 
-  //CHANGE VISIBILTY OF EDIT FIELD
+  // CHANGE VISIBILTY OF EDIT FIELD
   const handleEdit = () => {
     setEditFieldOpened((value) => !value);
     if (deleteFieldOpened) {
@@ -21,7 +21,7 @@ const Modal = ({ setModal }) => {
     }
   };
 
-  //CHANGE VISIBILTY OF DELETE FIELD
+  // CHANGE VISIBILTY OF DELETE FIELD
   const handleDelete = () => {
     setDeleteFieldOpened((value) => !value);
     if (editFieldOpened) {
@@ -29,7 +29,7 @@ const Modal = ({ setModal }) => {
     }
   };
 
-  //LOGOUT USER
+  // LOGOUT USER
   const handleLogout = () => {
     logout().then(() => {
       setUser(null);
@@ -54,7 +54,8 @@ const Modal = ({ setModal }) => {
         <ul className="w-full flex flex-col items-center gap-2">
           <li
             onClick={handleEdit}
-            className="setting w-full max-w-[300px] text-center hover:cursor-pointer font-bold p-3">
+            className="setting w-full max-w-[300px] text-center hover:cursor-pointer font-bold p-3"
+          >
             Edit Profile
           </li>
           {editFieldOpened && (
@@ -64,7 +65,8 @@ const Modal = ({ setModal }) => {
           )}
           <li
             onClick={handleDelete}
-            className="setting w-full max-w-[300px] text-center hover:cursor-pointer font-bold p-3">
+            className="setting w-full max-w-[300px] text-center hover:cursor-pointer font-bold p-3"
+          >
             Delete Account
           </li>
           {deleteFieldOpened && (
@@ -74,7 +76,8 @@ const Modal = ({ setModal }) => {
           )}
           <li
             onClick={handleLogout}
-            className="setting w-full max-w-[300px] text-center hover:cursor-pointer font-bold p-3">
+            className="setting w-full max-w-[300px] text-center hover:cursor-pointer font-bold p-3"
+          >
             Logout
           </li>
         </ul>
