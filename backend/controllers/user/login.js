@@ -52,7 +52,8 @@ export const login = async (req, res, next) => {
     //CHECK IF USER VERIFIED THE EMAIL ADRESS
     if (!user.isVerified) {
       return res.status(401).json({
-        error: "EmailNotVerified",
+        error: "notVerified",
+        message: `User with id [${user._id}] is not verified.`,
       });
     }
 
@@ -72,8 +73,8 @@ export const login = async (req, res, next) => {
     res.cookie("accessToken", accessToken, {
       maxAge: 600 * 1000,
       httpOnly: true,
-      sameSite: "None",
-      secure: true,
+      // sameSite: "None",
+      // secure: true,
     });
 
     //RETURN USER DATA
