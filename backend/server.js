@@ -20,7 +20,7 @@ app.use(express.json());
 //CORS ip settings
 app.use(
   cors({
-    origin: ["https://chatbotbybaris.netlify.app", "http://localhost:5173"],
+    origin: ["https://chatbotbybaris.onrender.com/", "http://localhost:5173"],
     credentials: true,
   })
 );
