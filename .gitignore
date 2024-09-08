@@ -25,3 +25,7 @@ lerna-debug.log*
 *.njsproj
 *.sln
 *.sw?
+
+# others
+
+notes.txt
