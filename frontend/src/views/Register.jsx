@@ -18,16 +18,16 @@ const Register = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     isWaiting(true);
-    //TRIM & LOWERCASE EMAIL
+    // TRIM & LOWERCASE EMAIL
     const email = emailValue.trim().toLowerCase();
-    //TRIM PASSWORD
+    // TRIM PASSWORD
     const password = passwordValue.trim();
-    //GET CAPTCHA VALUE
+    // GET CAPTCHA VALUE
     const captchaValue = recaptcha.current.getValue();
-    //SEND USER DATA AND CAPTCHA VALUE TO REGISTER FUNCTION
+    // SEND USER DATA AND CAPTCHA VALUE TO REGISTER FUNCTION
     register({ email, password, captchaValue }).then((data) => {
       isWaiting(false);
-      //IF REGISTRATION INVALID SET THE WARNING, ELSE DEACTIVATE
+      // IF REGISTRATION INVALID SET THE WARNING, ELSE DEACTIVATE
       if (data.error) {
         setWarning(data.error);
         setRegisterMessage(null);

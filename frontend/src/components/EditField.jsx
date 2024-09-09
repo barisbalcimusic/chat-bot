@@ -17,9 +17,9 @@ const EditField = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    //UPDATE USER INFO
+    // UPDATE USER INFO
     editProfile(user.email, newEmail).then((data) => {
-      //IF SUCCESS...
+      // IF SUCCESS...
       if (data.status === "success") {
         //...LOGOUT USER
         logout().then(() => {

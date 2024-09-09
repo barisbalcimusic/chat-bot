@@ -14,7 +14,7 @@ const DeleteField = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    //DELETE USER
+    // DELETE USER
     deleteAccount({ userId: user.userId, password: passwordValue }).then(() => {
       setUser(null);
       setMessages([]);

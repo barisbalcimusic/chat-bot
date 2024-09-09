@@ -18,11 +18,11 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     isWaiting(true);
-    //TRIM & LOWERCASE EMAIL
+    // TRIM & LOWERCASE EMAIL
     const email = emailValue.trim().toLowerCase();
     login({ email, password: passwordValue }).then((data) => {
       isWaiting(false);
-      //IF LOGIN INVALID SET THE WARNING, ELSE DEACTIVATE
+      // IF LOGIN INVALID SET THE WARNING, ELSE DEACTIVATE
       if (data.error) {
         setWarning(data.error);
       } else {

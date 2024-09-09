@@ -9,7 +9,7 @@ const Chat = () => {
   const { user } = useLoginContext();
   const navigate = useNavigate();
 
-  //REDIRECT IF USER TRIES A DIRECTLY ACCESS TO THE PATH OR LOGS OUT
+  // REDIRECT IF USER TRIES A DIRECTLY ACCESS TO THE PATH OR LOGS OUT
   useEffect(() => {
     if (!user) navigate("/login");
   }, [user]);

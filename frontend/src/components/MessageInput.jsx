@@ -19,13 +19,13 @@ const MessageInput = () => {
   const [limitReached, setLimitReached] = useState(false);
   const inputRef = useRef();
 
-  //CHECK THE MESSAGE COUNT
+  // CHECK THE MESSAGE COUNT
   useEffect(() => {
     if (counter >= 10) {
       setLimitReached(true);
       return;
     }
-    //SET AUTO FOCUS ON INPUT
+    // SET AUTO FOCUS ON INPUT
     inputRef.current.focus();
   }, [counter]);
 
@@ -34,18 +34,18 @@ const MessageInput = () => {
     //INPUT CHECK: IGNORE EMPTY MESSAGES
     if (inputValue.trim().length === 0) return;
 
-    //ACTIVATE TYPE ANIMATION
+    // ACTIVATE TYPE ANIMATION
     setTypeAnimation(true);
 
     try {
-      //PREPARE QUESTION
+      // PREPARE QUESTION
       const post = {
         userId: user.userId,
         message: inputValue,
         type: "question",
       };
 
-      //SAVE QUESTION INTO DB
+      // SAVE QUESTION INTO DB
       const data = await saveMessage(post);
 
       // CHECK FOR AUTHENTICATION ERROR
@@ -55,7 +55,7 @@ const MessageInput = () => {
           setLimitReached(true);
           return;
         } else {
-          //LOGOUT USER
+          // LOGOUT USER
           logout().then(() => {
             setUser(null);
             setMessages([]);
@@ -63,35 +63,35 @@ const MessageInput = () => {
           throw new Error(data.error);
         }
       }
-      //INCREATE COUNTER (MESSAGE COUNT)
+      // INCREATE COUNTER (MESSAGE COUNT)
       setCounter((counter) => counter + 1);
-      //CLEAR THE INPUT
+      // CLEAR THE INPUT
       setInputValue("");
-      //ADD QUESTION INTO MESSAGES STATE
+      // ADD QUESTION INTO MESSAGES STATE
       setMessages([...messages, data]);
-      //ACTIVATE TYPING ANIMATION
+      // ACTIVATE TYPING ANIMATION
       setTyping(true);
 
-      //SEND CHATGPT THE QUESTION AND GET THE ANSWER
+      // SEND CHATGPT THE QUESTION AND GET THE ANSWER
       const gptAnswer = await askChatGPT(inputValue);
 
-      //PREPARE ANSWER
+      // PREPARE ANSWER
       const answer = {
         userId: user.userId,
         message: gptAnswer,
         type: "answer",
       };
 
-      //SAVE ANSWER INTO DB
+      // SAVE ANSWER INTO DB
       await saveMessage(answer);
 
-      //INCREATE COUNTER (MESSAGE COUNT)
+      // INCREATE COUNTER (MESSAGE COUNT)
       setCounter((counter) => counter + 1);
-      //ADD ANSWER INTO MESSAGES STATE
+      // ADD ANSWER INTO MESSAGES STATE
       setMessages((prevMessages) => [...prevMessages, answer]);
-      //DEACTIVATE TYPING ANIMATION
+      // DEACTIVATE TYPING ANIMATION
       setTyping(false);
-      //TRIGGER RE-RENDERING FOR HISTORY
+      // TRIGGER RE-RENDERING FOR HISTORY
       setSubmitted((value) => !value);
     } catch (e) {
       console.error(e);

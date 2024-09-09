@@ -16,18 +16,18 @@ const History = () => {
     setTypeAnimation(false);
     setCounter(0);
 
-    //GET ALL MESSAGES & SET AS STATE WHEN USER IS LOGGED IN
+    // GET ALL MESSAGES & SET AS STATE WHEN USER IS LOGGED IN
     const fetchMessages = async () => {
       try {
         const conversation = await getConversation(user.userId);
-        //IF THERE IS A CONVERSATION
+        // IF THERE IS A CONVERSATION
         if (conversation) {
           setCounter(conversation.messages.length);
-          //SET MESSAGES INTO STATE VARIABLE
+          // SET MESSAGES INTO STATE VARIABLE
           setMessages(conversation.messages);
-          //IF THERE IS NO CONVERSATION
+          // IF THERE IS NO CONVERSATION
         } else {
-          //CREATE A NEW CONVERSATION
+          // CREATE A NEW CONVERSATION
           await createConversation(user.userId);
         }
       } catch (e) {
@@ -41,7 +41,7 @@ const History = () => {
   }, [user]);
 
   useEffect(() => {
-    //AUTO SCROLL TO BOTTOM
+    // AUTO SCROLL TO BOTTOM
     const historyDiv = historyRef.current;
     historyDiv.scrollTop = historyDiv.scrollHeight;
   }, [messages]);
@@ -50,13 +50,14 @@ const History = () => {
     <div
       ref={historyRef}
       id="history-div"
-      className="flex flex-col items-center gap-2 lg:gap-5 p-3 pt-12 overflow-y-auto mb-[100px]">
+      className="flex flex-col items-center gap-2 lg:gap-5 p-3 pt-12 overflow-y-auto mb-[100px]"
+    >
       {messages.map((message, index, array) => {
-        //COMMON STYLES
+        // COMMON STYLES
         const messageStyle =
           "w-[90%] max-w-[800px] px-2 py-4 lg:px-3 lg:py-5 flex items-center gap-3 lg:gap-3 rounded-[10px] shadow-lg shadow-gray-700";
 
-        //IF MESAGE TYPE IS QUESTION...
+        // IF MESAGE TYPE IS QUESTION...
         if (message.type === "question") {
           return (
             //...SHOW QUESTION WITHOUT TYPING ANIMATION
@@ -71,7 +72,7 @@ const History = () => {
           );
         }
 
-        //IF MESAGE TYPE IS ANSWER...
+        // IF MESAGE TYPE IS ANSWER...
         if (message.type === "answer") {
           //...AND TYPE ANIMATION STATE IS TRUE AND IT IS THE LAST ANSWER
           if (typeAnimation && array.length - 1 === index) {
