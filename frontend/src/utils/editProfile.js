@@ -1,4 +1,6 @@
-const apiURL = import.meta.env.VITE_BASE_API_URL;
+import { selectAPI } from "./selectAPI";
+
+const apiURL = selectAPI();
 
 export const editProfile = async (email, newEmail) => {
   try {

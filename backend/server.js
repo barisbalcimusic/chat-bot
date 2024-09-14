@@ -20,7 +20,11 @@ app.use(express.json());
 //CORS ip settings
 app.use(
   cors({
-    origin: ["https://chatbotbybaris.onrender.com", "http://localhost:5173"],
+    origin: [
+      "https://chatbotbybaris.onrender.com",
+      "http://localhost:5173",
+      "http://localhost:5174",
+    ],
     credentials: true,
   })
 );
