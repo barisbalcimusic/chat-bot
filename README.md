@@ -1,5 +1,8 @@
 # Full-Stack (MERN) Chatbot with Backend Focus (07/2024)
  
+**Notice (September 15, 2024):** Due to an issue I have not yet identified, the application does not work properly on iPhone devices. Therefore, if you need to test on a mobile device, using an Android phone will yield more accurate results. For the most reliable results, please use the desktop version.
+
+---
 ### [https://chatbotbybaris.onrender.com/](https://chatbotbybaris.onrender.com)
 
 This project was developed as part of the backend module final project in the Full Stack Web Development course at DCI. It is a Fullstack (MERN) chat bot application with a focus on the backend. This README file explains the setup and features of the project in detail.
