@@ -52,7 +52,7 @@ export const mailOptionsFunc = (receiver, verificationToken) => {
                 <p>Hello ${receiver.split("@")[0]},</p>
                 <p>Your registration at ChatBot was successful. We are excited to have you on board!</p>
                 <p>Please click the link below to verify your email address:</p>
-                <p><a href="https://backendfinalproject.onrender.com/api/users/verify?token=${verificationToken}" class="button">Verify Email</a></p>
+                <p><a href="https://api-chatbotbybaris.onrender.com/api/users/verify?token=${verificationToken}" class="button">Verify Email</a></p>
                 <p>If you have any questions, feel free to contact us.</p>
                 <p>Best regards,<br>ChatBot Team</p>
             </div>
