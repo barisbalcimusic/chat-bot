@@ -12,12 +12,19 @@ const Register = () => {
   const [warning, setWarning] = useState(false);
   const [registerMessage, setRegisterMessage] = useState(null);
   const [passwordHidden, setPasswordHidden] = useState(true);
+  const [waitingMessageOn, setWaitingMessageOn] = useState(false);
   const [waiting, isWaiting] = useState(false);
   const recaptcha = useRef();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     isWaiting(true);
+    setWarning(false);
+
+    const timer = setTimeout(() => {
+      setWaitingMessageOn(true);
+    }, 5000);
+
     // TRIM & LOWERCASE EMAIL
     const email = emailValue.trim().toLowerCase();
     // TRIM PASSWORD
@@ -25,26 +32,34 @@ const Register = () => {
     // GET CAPTCHA VALUE
     const captchaValue = recaptcha.current.getValue();
     // SEND USER DATA AND CAPTCHA VALUE TO REGISTER FUNCTION
-    register({ email, password, captchaValue }).then((data) => {
-      isWaiting(false);
-      // IF REGISTRATION INVALID SET THE WARNING, ELSE DEACTIVATE
-      if (data.error) {
-        setWarning(data.error);
-        setRegisterMessage(null);
-      } else {
-        setWarning(false);
-        setRegisterMessage(data.message);
-        setEmailValue("");
-        setPasswordValue("");
-      }
-    });
+    register({ email, password, captchaValue })
+      .then((data) => {
+        // IF REGISTRATION INVALID SET THE WARNING, ELSE DEACTIVATE
+        if (data.error) {
+          setWarning(data.error);
+          setRegisterMessage(null);
+        } else {
+          setWarning(false);
+          setRegisterMessage(data.message);
+          setEmailValue("");
+          setPasswordValue("");
+        }
+      })
+      .catch((e) => {
+        console.error(e);
+        setWarning("UnexpectedError");
+      })
+      .finally(() => {
+        isWaiting(false);
+        clearTimeout(timer);
+        setWaitingMessageOn(false);
+      });
   };
 
   return (
     <form
       className="w-full h-full flex flex-col justify-center items-center gap-5 p-5 bg-white"
-      onSubmit={handleSubmit}
-    >
+      onSubmit={handleSubmit}>
       <h1 className="text-4xl font-bold mb-[30px]">Register</h1>
       <input
         value={emailValue}
@@ -63,8 +78,7 @@ const Register = () => {
         />
         <div
           onClick={() => setPasswordHidden((value) => !value)}
-          className="absolute right-3 hover:cursor-pointer hover:text-gray-400"
-        >
+          className="absolute right-3 hover:cursor-pointer hover:text-gray-400">
           {passwordHidden ? (
             <FontAwesomeIcon icon={faEye} />
           ) : (
@@ -84,6 +98,8 @@ const Register = () => {
             ? "The password must be longer than 8 characters"
             : warning === "InvalidCaptcha"
             ? "Please verify the captcha to proceed."
+            : warning === "UnexpectedError"
+            ? "An unexpected error occurred. Please try again later."
             : null}
         </p>
       )}
@@ -92,14 +108,18 @@ const Register = () => {
           {registerMessage}
         </p>
       )}
+      {waitingMessageOn && (
+        <p className="w-[300px] text-sm text-blue-700 text-justify">
+          If the wait is long, the server may be waking from sleep due to
+          inactivity. This can take up to 50 seconds. Thanks for your patience.
+        </p>
+      )}
       <button
         disabled={waiting ? true : false}
         type="submit"
-        className="w-[300px] p-3 bg-[#9FC1BF] hover:bg-[#C5E7E5] border-gray-400 rounded-[10px] disabled:bg-gray-200"
-      >
+        className="w-[300px] p-3 bg-[#9FC1BF] hover:bg-[#C5E7E5] border-gray-400 rounded-[10px] disabled:bg-gray-200">
         {waiting ? <BeatLoader loading={true} size={10} /> : "send"}
       </button>
-
       <div className="flex gap-2">
         <p>Already have an account?</p>
         <Link to={"/login"} className="text-blue-700 font-bold">

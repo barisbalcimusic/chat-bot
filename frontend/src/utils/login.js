@@ -13,6 +13,6 @@ export const login = async (post) => {
     const data = await res.json();
     return data;
   } catch (e) {
-    console.error(e);
+    throw e;
   }
 };
