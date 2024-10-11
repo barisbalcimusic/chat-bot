@@ -3,11 +3,21 @@
 **Notice (September 15, 2024):** Due to an issue I have not yet identified, the application does not work properly on iPhone devices. Therefore, if you need to test on a mobile device, using an Android phone will yield more accurate results. For the most reliable results, please use the desktop version.
 
 ---
-### [https://chatbotbybaris.onrender.com/](https://chatbotbybaris.onrender.com)
+### [Click for Live Demo - Chatbot](https://chatbotbybaris.onrender.com)
 
 This project was developed as part of the backend module final project in the Full Stack Web Development course at DCI. It is a Fullstack (MERN) chat bot application with a focus on the backend. This README file explains the setup and features of the project in detail.
 
 **Note:** The chatbot functionality is powered by **ChatGPT** for natural language processing.
+
+---
+
+To quickly log in without registration, use the following test credentials:
+
+**Email**: chatbotapp.test@gmail.com
+
+**Password**: test123!
+
+---
 
 ## Table of Contents
 - Features
@@ -101,10 +111,6 @@ This project was developed as part of the backend module final project in the Fu
 - Security: Google reCAPTCHA, sanitize-html
 
 ## Screenshots
-![Home](https://github.com/barisbalcimusic/backendFinalProject/blob/main/screenshots/Screenshot%20from%202024-07-18%2010-14-56.png)
-![Register](https://github.com/barisbalcimusic/backendFinalProject/blob/main/screenshots/Screenshot%20from%202024-07-18%2010-15-46.png)
-![Login](https://github.com/barisbalcimusic/backendFinalProject/blob/main/screenshots/Screenshot%20from%202024-07-18%2010-15-14.png)
-![Chat](https://github.com/barisbalcimusic/backendFinalProject/blob/main/screenshots/Screenshot%20from%202024-07-18%2010-17-45.png)
-![Settings](https://github.com/barisbalcimusic/backendFinalProject/blob/main/screenshots/Screenshot%20from%202024-07-18%2010-18-00.png)
+![chatbot live-demo](https://github.com/user-attachments/assets/a04a95b3-cbfd-4f45-aab0-90f4ee7e5f78)
 
 
