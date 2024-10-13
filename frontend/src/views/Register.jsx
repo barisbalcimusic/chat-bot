@@ -66,6 +66,7 @@ const Register = () => {
         type="text"
         className="w-[300px] p-3 placeholder:italic border border-gray-400 rounded-[10px] "
         placeholder="Email adress"
+        disabled={waiting}
         onChange={(e) => setEmailValue(e.target.value)}
       />
       <div className="flex justify-end items-center relative">
@@ -74,6 +75,7 @@ const Register = () => {
           type={passwordHidden ? "password" : "text"}
           className="w-[300px] p-3 placeholder:italic border border-gray-400 rounded-[10px] "
           placeholder="Password"
+          disabled={waiting}
           onChange={(e) => setPasswordValue(e.target.value)}
         />
         <div
