@@ -2,6 +2,7 @@ import { compare } from "bcrypt";
 import { User } from "../../models/User.js";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
+import { Conversation } from "../../models/Conversation.js";
 
 dotenv.config();
 
@@ -67,6 +68,11 @@ export const login = async (req, res, next) => {
       return res.status(500).json({
         error: "TokenCreationError",
       });
+    }
+
+    // DELETE ALL CONVERSATIONS OF TEST ACCOUNT ON EVERY LOGIN
+    if (email === process.env.TEST_ACCOUNT) {
+      await Conversation.deleteMany({ userId: user.id });
     }
 
     //SET ACCESS TOKEN INTO COOKIES
