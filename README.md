@@ -17,6 +17,8 @@ To quickly log in without registration, use the following test credentials:
 
 **Password**: test123!
 
+**Note**: All messages will be deleted on each login with the test account to keep the chat history clear.
+
 ---
 
 ## Table of Contents
