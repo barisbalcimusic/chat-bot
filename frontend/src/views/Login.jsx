@@ -7,8 +7,8 @@ import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import BeatLoader from "react-spinners/BeatLoader";
 
 const Login = () => {
-  const [emailValue, setEmailValue] = useState("");
-  const [passwordValue, setPasswordValue] = useState("");
+  const [emailValue, setEmailValue] = useState("chatbotapp.test@gmail.com");
+  const [passwordValue, setPasswordValue] = useState("test123!");
   const [warning, setWarning] = useState(false);
   const [passwordHidden, setPasswordHidden] = useState(true);
   const [waitingMessageOn, setWaitingMessageOn] = useState(false);
